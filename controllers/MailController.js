@@ -4,6 +4,7 @@ const MessageController = require('./MessageController');
 
 let controller = {
 
+    
     sendMail: function (req, res) {
 
         MessageController.getHtmlPrueba((error, htmlContent) => {
