@@ -31,6 +31,8 @@ let controller = {
         })
         return string
     }
+
+    
 }
 
 module.exports = controller;
