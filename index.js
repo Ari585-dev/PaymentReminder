@@ -21,3 +21,9 @@ try {
 
     connection.end();
 }
+
+//check date
+//stablish reminder time
+//iterate
+//  notifyStudents(getHaventPaid)
+//-----

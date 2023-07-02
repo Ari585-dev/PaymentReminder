@@ -17,7 +17,6 @@ let controller = {
         });
     },
 
-
     getMessagePaymentReminder: (student, path) => {
         fs.readFile(path, 'utf8', (error, data) => {
             if (error) {
