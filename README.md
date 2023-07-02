@@ -4,6 +4,11 @@ This app is an API that chekcs a university's database, to establish a serie of 
 - Notify each student that havent paid during certain days that he haven't pay yet (days between start and end date)
 - Notify a student when his payment has been recieved succesfully
 
+## Tech Stack
+**Client:** React Native, (email,whatsapp)
+
+**Server:** Node, Express, MySQL
+
 ## Mobile App
 - Allow users to log in
 - Check the payment dates
