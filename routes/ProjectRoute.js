@@ -15,7 +15,7 @@ route.post('/send-email', MailConroller.sendMail); //send email
 
 ///login
 ///getStudent data by his id (for app display his name etc)
-route.get('/students',StudentsController.allStudents); // get all students
+route.get('/students',StudentsController.allStudents); // get all students (all remind payment 1st day)
 route.get('/nopayment', StudentsController.studentsWithoutPayment); // get students that haven't pay
 //get if student paid by his id
 

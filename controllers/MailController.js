@@ -4,7 +4,6 @@ require('dotenv').config();
 
 
 let controller = {
-
     
     sendMail: function (req, res) {
     const email= process.env.EMAIL;
