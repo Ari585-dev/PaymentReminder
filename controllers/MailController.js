@@ -1,12 +1,14 @@
 const nodemailer = require('nodemailer')
-const { restart } = require('nodemon')
 const MessageController = require('./MessageController');
+require('dotenv').config();
+
 
 let controller = {
-
     
     sendMail: function (req, res) {
-
+    const email= process.env.EMAIL;
+    const password= process.env.PASSWORD;
+    
         MessageController.getHtmlPrueba((error, htmlContent) => {
             if (error) {
 
@@ -20,13 +22,13 @@ let controller = {
                 //secure: false,
                 service: 'hotmail',
                 auth: {
-                    user: 'saga_chumita@hotmail.com',
-                    pass: '3204086197'
+                    user: email,
+                    pass: password
                 },
             })
 
             const mailOpt = {
-                from: "saga_chumita@hotmail.com",
+                from: password,
                 to: "juliaan657@gmail.com",
                 subject: "Herpes gratis ,':)!",
                 html: htmlContent
@@ -41,7 +43,8 @@ let controller = {
                 }
             })
         });
-    }
+    },
+
 }
 
 module.exports = controller;
