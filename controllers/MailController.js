@@ -7,8 +7,7 @@ let controller = {
     
     sendMail: function (req, res) {
         nombre="juan"
-        MessageController.getHtmlPrueba(nombre, (error, html) => {
-
+        MessageController.getHtmlOpenPayment(nombre, (error, html) => {
             const mailgun= () => 
             mg({
                 apiKey: process.env.MAILGUN_API_KEY,
