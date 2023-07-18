@@ -1,34 +1,37 @@
 const fs = require('fs');
 const path = require('path');
 
-const htmlFilePath = path.join(__dirname, '../templates/OpeningPayment.html');
+const htmlOpenURL = path.join(__dirname, '../templates/OpenPayment.html');
+const htmlRemindURL = path.join(__dirname, '../templates/Reminder.html');
 
 let controller = {
-    getHtmlPrueba: (callback) => {
-        fs.readFile(htmlFilePath, 'utf8', (error, html) => {
+    getHtmlOpenPayment: (nombre, callback) => {
+        fs.readFile(htmlOpenURL, 'utf8', (error, html) => {
             if (error) {
                 console.error(error);
                 callback(error);
                 return;
             }
-
+            html = html.replace("Nombre", nombre);
+            console.log(html)
             callback(null, html);
 
         });
     },
 
-    getMessagePaymentReminder: (student, path) => {
-        fs.readFile(path, 'utf8', (error, data) => {
+    getHtmlRemind: (student, callback) => {
+        fs.readFile(htmlRemindURL, 'utf8', (error, data) => {
             if (error) {
                 console.error(error);
+                callback(error);
                 return;
             }
-            //replace with the student's data
-            htmlContent = data;
-
-            console.log(htmlContent);
+            html = html.replace("Nombre", nombre);
+            console.log(html)
+            callback(null, html);
+            
         })
-        return string
+        
     }
 
     

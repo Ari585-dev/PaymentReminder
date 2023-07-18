@@ -6,17 +6,19 @@ const mg = require('mailgun-js')
 let controller = {
     
     sendMail: function (req, res) {
-        MessageController.getHtmlPrueba((error, htmlContent) => {
+        nombre="juan"
+        MessageController.getHtmlPrueba(nombre, (error, html) => {
+
             const mailgun= () => 
             mg({
                 apiKey: process.env.MAILGUN_API_KEY,
                 domain: process.env.MAILGUN_DOMAIN
             })
             emailInfo={
-                from: '"Julian" <juliandr544@gmail.com>',
+                from: `"${process.env.NAME}" <${process.env.EMAIL}>`,   
                 to: 'seragial@gmail.com',
                 subject: 'User Registered',
-                html: htmlContent
+                html: html
             }
             mailgun().messages().send(emailInfo, (error, body)=>{
                 if(error){
@@ -25,7 +27,8 @@ let controller = {
                         message: "xd"
                     })
                 }else{
-                    res.send({message:"hihijajaj"})
+                    res.send({message:body})
+                    res.status(200).send()
                 }
             })
         });
