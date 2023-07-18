@@ -6,9 +6,6 @@ const mg = require('mailgun-js')
 let controller = {
     
     sendMail: function (req, res) {
-    const email= process.env.EMAIL;
-    const password= process.env.PASSWORD;
-    
         MessageController.getHtmlPrueba((error, htmlContent) => {
             const mailgun= () => 
             mg({
@@ -16,7 +13,7 @@ let controller = {
                 domain: process.env.MAILGUN_DOMAIN
             })
             emailInfo={
-                from: '"Julian" <juliandr544@gmail.com',
+                from: '"Julian" <juliandr544@gmail.com>',
                 to: 'seragial@gmail.com',
                 subject: 'User Registered',
                 html: htmlContent
