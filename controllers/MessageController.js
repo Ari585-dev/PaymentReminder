@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const htmlFilePath = path.join(__dirname, '../templates/Reminder.html');
+const htmlFilePath = path.join(__dirname, '../templates/OpeningPayment.html');
 
 let controller = {
     getHtmlPrueba: (callback) => {
