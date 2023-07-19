@@ -1,4 +1,4 @@
-const students = require('../crud/students');
+//const students = require('../crud/students');
 const MailController = require('./MailController');
 const MessageController = require('./MessageController');
 const StudentsController = require('./StudentsController');
@@ -8,13 +8,11 @@ let controller = {
     notifyAllPayment: async function(req, res) {
         try {
           const students = await StudentsController.allStudents();
-          students.forEach(async student => {
-            //console.log(student.nombres);
-            const html = await MessageController.getHtmlOpenPayment(student)
-            //console.log(student.correo)
-            await MailController.sendMail(student.correo, html)
-          });
-          res.status(200).send(students);
+          for (const student of students) {
+            const html = await MessageController.getHtmlOpenPayment(student);
+            await MailController.sendMail(student.correo, html, student.correo, html);
+          }
+          //res.status(200).send(students);
         } catch (err) {
           // Handle the error
           console.error(err);
