@@ -1,5 +1,6 @@
 let connection = require('../config/connection');
 const students = require('../crud/students');
+const info = require('../crud/information');
 require('dotenv').config();
 
 

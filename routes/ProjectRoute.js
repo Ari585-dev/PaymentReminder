@@ -11,12 +11,12 @@ const route= express.Router();
 //email reminder to pay
 //email payment recieved
 route.post('/send-email', MailConroller.sendMail); //send email
-route.get('/notifyStudents', MainController.notifyAllPayment)
+route.get('/notifyStudents', MainController.notifyAllPayment);
 //routes Students Controller
 
 ///login
 ///getStudent data by his id (for app display his name etc)
-route.get('/students',StudentsController.allStudents); // get all students (all remind payment 1st day)
+route.get('/students', StudentsController.allStudents); // get all students (all remind payment 1st day)
 route.get('/nopayment', StudentsController.studentsWithoutPayment); // get students that haven't pay
 //get if student paid by his id
 

@@ -9,6 +9,7 @@ const project_routes= require('./routes/ProjectRoute');
 app.use('/api', project_routes);
 
 controller.scheduleNoPayment();
+controller.schedulePaymentDateConsult();
 
 
 
