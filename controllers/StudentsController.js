@@ -8,7 +8,7 @@ let controller = {
     allStudents:function(req, res){
         students.getAllStudents(connection,function(err,data){
          console.log(data);
-        return  res.status(200).send({data}); 
+        return ({data}); 
         });
          
      },
