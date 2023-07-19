@@ -27,7 +27,6 @@ let controller = {
               const html = await MessageController.getHtmlReminder(student);
               await MailController.sendMail(student.correo, html, student.correo, html);
             }
-            //res.status(200).send(students);
           } catch (err) {
             // Handle the error
             console.error(err);

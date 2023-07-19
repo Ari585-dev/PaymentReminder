@@ -32,20 +32,7 @@ let controller = {
         console.error(error);
         throw error;
       }
-       /*  fs.readFile(htmlRemindURL, 'utf8', (error, data) => {
-            if (error) {
-                console.error(error);
-                callback(error);
-                return;
-            }
-            html = html.replace("Nombre", nombre);
-            console.log(html)
-            callback(null, html);
-            
-        }) */
 
-
-        
     }
 
     
