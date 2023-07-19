@@ -2,6 +2,7 @@
 const MailController = require('./MailController');
 const MessageController = require('./MessageController');
 const StudentsController = require('./StudentsController');
+const cron = require('node-cron');
 
 let controller = {
     //notify students that the payment is open
@@ -12,7 +13,7 @@ let controller = {
             const html = await MessageController.getHtmlOpenPayment(student);
             await MailController.sendMail(student.correo, html, student.correo, html);
           }
-          //res.status(200).send(students);
+          res.status(200).send(students);
         } catch (err) {
           // Handle the error
           console.error(err);
@@ -38,6 +39,18 @@ let controller = {
     notifyPaid: function (req, res) {
         
     },  
+
+    scheduleNotifyAllPayment: function() {
+      // Programar la tarea para que se ejecute cada día a las 9:00 a.m.
+      cron.schedule('*/2 * * * *', async () => {
+        try {
+          await controller.notifyAllPayment();
+          console.log('Tarea de notificación de pago realizada con éxito.');
+        } catch (err) {
+          console.error('Error al realizar la tarea de notificación de pago:', err);
+        }
+      });
+    },
 }
 
 module.exports = controller;
