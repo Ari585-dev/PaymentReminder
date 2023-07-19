@@ -1,6 +1,7 @@
 const express = require('express')
 const MailConroller=require('../controllers/MailController');
 const StudentsController=require('../controllers/StudentsController');
+const MainController=require('../controllers/MainController');
 
 const route= express.Router();
 
@@ -10,7 +11,7 @@ const route= express.Router();
 //email reminder to pay
 //email payment recieved
 route.post('/send-email', MailConroller.sendMail); //send email
-
+route.get('/notifyStudents', MainController.notifyAllPayment)
 //routes Students Controller
 
 ///login

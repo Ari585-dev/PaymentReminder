@@ -1,49 +1,33 @@
-const nodemailer = require('nodemailer')
-const MessageController = require('./MessageController');
 require('dotenv').config();
-
+const mg = require('mailgun-js') 
 
 let controller = {
     
-    sendMail: function (req, res) {
-    const email= process.env.EMAIL;
-    const password= process.env.PASSWORD;
-    
-        MessageController.getHtmlPrueba((error, htmlContent) => {
+    sendMail: function (req, res, correo, html) {
+        console.log(correo);
+        //console.log(html);
+        //MessageController.getHtmlOpenPayment(nombre, (error, html) => {
+        const mailgun = () =>
+          mg({
+            apiKey: process.env.MAILGUN_API_KEY,
+            domain: process.env.MAILGUN_DOMAIN
+          });
+        emailInfo = {
+          from: `"${process.env.NAME}" <${process.env.EMAIL}>`,
+          to: correo,
+          subject: 'User Registered',
+          html: html
+        };
+        mailgun().messages().send(emailInfo, (error, body) => {
             if (error) {
-
-                return;
-            }
-
-            console.log("send-email reached")
-            const transporter = nodemailer.createTransport({
-                host: "smtp.hotmail.email",
-                //post: 587,
-                //secure: false,
-                service: 'hotmail',
-                auth: {
-                    user: email,
-                    pass: password
-                },
-            })
-
-            const mailOpt = {
-                from: password,
-                to: "juliaan657@gmail.com",
-                subject: "Herpes gratis ,':)!",
-                html: htmlContent
-            }
-
-            transporter.sendMail(mailOpt, (error, info) => {
-                if (error) {
-                    res.status(500).send(error.message)
-                } else {
-                    console.log("email sent")
-                    res.status(200).jsonp(req.body)
-                }
-            })
+                console.log(error);
+                res.sendStatus(500);
+              } else {
+                res.sendStatus(200);
+              }
         });
-    },
+        //});
+      },
 
 }
 

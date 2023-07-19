@@ -1,10 +1,17 @@
 module.exports={
     
-    getAllStudents:function(connection,funcion){
-        connection.query("SELECT * FROM students", funcion);
-    
-    },
-
+    getAllStudents: function(connection) {
+        return new Promise(function(resolve, reject) {
+          connection.query("SELECT * FROM students", function(err, data) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+      },
+      
     getAllStudentsWithoutPayment:function(connection, funcion){
         connection.query("SELECT * FROM students WHERE matricula = false", funcion);
     }

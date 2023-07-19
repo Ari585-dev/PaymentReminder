@@ -1,34 +1,39 @@
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 
-const htmlFilePath = path.join(__dirname, '../templates/Reminder.html');
+const readFileAsync = util.promisify(fs.readFile);
+
+const htmlOpenURL = path.join(__dirname, '../templates/OpenPayment.html');
+const htmlRemindURL = path.join(__dirname, '../templates/Reminder.html');
 
 let controller = {
-    getHtmlPrueba: (callback) => {
-        fs.readFile(htmlFilePath, 'utf8', (error, html) => {
+    
+    getHtmlOpenPayment: async function(student) {
+        try {
+          const html = await readFileAsync(htmlOpenURL, 'utf8');
+          const replacedHtml = html.replace("Nombre", student.nombres);
+          //console.log(replacedHtml);
+          return replacedHtml;
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      },
+
+    getHtmlReminder: (student, callback) => {
+        fs.readFile(htmlRemindURL, 'utf8', (error, data) => {
             if (error) {
                 console.error(error);
                 callback(error);
                 return;
             }
-
+            html = html.replace("Nombre", nombre);
+            console.log(html)
             callback(null, html);
-
-        });
-    },
-
-    getMessagePaymentReminder: (student, path) => {
-        fs.readFile(path, 'utf8', (error, data) => {
-            if (error) {
-                console.error(error);
-                return;
-            }
-            //replace with the student's data
-            htmlContent = data;
-
-            console.log(htmlContent);
+            
         })
-        return string
+        
     }
 
     

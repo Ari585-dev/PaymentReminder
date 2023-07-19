@@ -5,13 +5,17 @@ require('dotenv').config();
 
 let controller = {
 
-    allStudents:function(req, res){
-        students.getAllStudents(connection,function(err,data){
-         console.log(data);
-        return  res.status(200).send({data}); 
-        });
-         
-     },
+    allStudents: async function(req, res) {
+        try {
+          const data = await students.getAllStudents(connection);
+          // console.log(data);
+          return data;
+        } catch (err) {
+          // Handle the error
+          console.error(err);
+          return [];
+        }
+      },
 
      studentsWithoutPayment:function(req, res){
         students.getAllStudentsWithoutPayment(connection,function(err,data){
