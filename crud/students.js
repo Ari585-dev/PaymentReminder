@@ -1,3 +1,5 @@
+const { promisify } = require('util');
+
 module.exports={
     
     getAllStudents: function(connection) {
@@ -12,9 +14,16 @@ module.exports={
         });
       },
       
-    getAllStudentsWithoutPayment:function(connection, funcion){
-        connection.query("SELECT * FROM students WHERE matricula = false", funcion);
-    }
+      getAllStudentsWithoutPayment: async function(connection) {
+        const queryAsync = promisify(connection.query).bind(connection);
+    
+        try {
+          const data = await queryAsync("SELECT * FROM students WHERE matricula = false");
+          return data;
+        } catch (err) {
+          throw err;
+        }
+      }
 
     /* insertar:function(connection,datos,archivos,funcion){
         connection.query("INSERT INTO discos ( nombre, imagen, requisitos) VALUES (?,?,?)",[datos.nombre, 

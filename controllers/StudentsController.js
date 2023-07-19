@@ -17,10 +17,18 @@ let controller = {
         }
       },
 
-     studentsWithoutPayment:function(req, res){
-        students.getAllStudentsWithoutPayment(connection,function(err,data){
+     studentsWithoutPayment: async function(req, res){
+       /*  students.getAllStudentsWithoutPayment(connection,function(err,data){
             return res.status(200).send({data});
-        });
+        }); */
+        try {
+          const data= await students.getAllStudentsWithoutPayment(connection);
+          return data;
+        } catch (err) {
+          console.log(err);
+          return [];
+        } 
+        
      }
 }
 
