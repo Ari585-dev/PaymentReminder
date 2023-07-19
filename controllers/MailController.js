@@ -23,7 +23,7 @@ let controller = {
                 console.log(error);
                 res.sendStatus(500);
               } else {
-                res.sendStatus(200);
+                res.status(200).send(body);
               }
         });
         //});
