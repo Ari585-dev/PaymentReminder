@@ -1,5 +1,6 @@
 let connection = require('../config/connection');
 const students = require('../crud/students');
+const info = require('../crud/information');
 require('dotenv').config();
 
 
@@ -17,10 +18,15 @@ let controller = {
         }
       },
 
-     studentsWithoutPayment:function(req, res){
-        students.getAllStudentsWithoutPayment(connection,function(err,data){
-            return res.status(200).send({data});
-        });
+     studentsWithoutPayment: async function(req, res){
+        try {
+          const data= await students.getAllStudentsWithoutPayment(connection);
+          return data;
+        } catch (err) {
+          console.log(err);
+          return [];
+        } 
+        
      }
 }
 

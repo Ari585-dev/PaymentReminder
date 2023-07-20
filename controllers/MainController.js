@@ -12,7 +12,7 @@ let controller = {
             const html = await MessageController.getHtmlOpenPayment(student);
             await MailController.sendMail(student.correo, html, student.correo, html);
           }
-          //res.status(200).send(students);
+          res.status(200).send(students);
         } catch (err) {
           // Handle the error
           console.error(err);
@@ -22,12 +22,11 @@ let controller = {
     //remind students that havent pay
     remindStudents: async function (req, res) {
         try {
-            const students = await StudentsController.studentsWithoutPayment;
+            const students = await StudentsController.studentsWithoutPayment();
             for (const student of students) {
               const html = await MessageController.getHtmlReminder(student);
               await MailController.sendMail(student.correo, html, student.correo, html);
             }
-            //res.status(200).send(students);
           } catch (err) {
             // Handle the error
             console.error(err);

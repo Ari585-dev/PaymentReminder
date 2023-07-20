@@ -1,15 +1,17 @@
 const express = require('express');
+const controller = require('./controllers/JobsController');
 
 const app= express();
 
 const project_routes= require('./routes/ProjectRoute');
 
 
-
-//cors
-
-//rutas
 app.use('/api', project_routes);
 
-//exports
+controller.scheduleNoPayment();
+controller.schedulePaymentDateConsult();
+
+
+
+
 module.exports = app;

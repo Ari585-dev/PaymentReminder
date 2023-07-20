@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 16 juin 2023 à 00:17
+-- Généré le : mer. 19 juil. 2023 à 03:17
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.0.25
 
@@ -58,6 +58,7 @@ INSERT INTO `informacion` (`fecha_de_pago_apertura`, `fecha_de_pago_cierre`, `fe
 CREATE TABLE `students` (
   `codigo` double DEFAULT NULL,
   `nombres` varchar(50) DEFAULT NULL,
+  `correo` varchar(50) NOT NULL,
   `matricula` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -65,17 +66,9 @@ CREATE TABLE `students` (
 -- Déchargement des données de la table `students`
 --
 
-INSERT INTO `students` (`codigo`, `nombres`, `matricula`) VALUES
-(1, 'John Doe', 1),
-(2, 'Jane Smith', 0),
-(3, 'Michael Johnson', 0),
-(4, 'Emily Davis', 1),
-(5, 'Robert Brown', 0),
-(6, 'Emma Wilson', 0),
-(7, 'David Taylor', 1),
-(8, 'Olivia Clark', 0),
-(9, 'William Martinez', 0),
-(10, 'Sophia Anderson', 1);
+INSERT INTO `students` (`codigo`, `nombres`, `correo`, `matricula`) VALUES
+(20192578094, 'Julian', 'juliaan657@gmail.com', 0),
+(2018232132, 'Sergio', 'seragial@gmail.com', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

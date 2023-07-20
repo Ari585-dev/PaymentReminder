@@ -21,19 +21,18 @@ let controller = {
         }
       },
 
-    getHtmlReminder: (student, callback) => {
-        fs.readFile(htmlRemindURL, 'utf8', (error, data) => {
-            if (error) {
-                console.error(error);
-                callback(error);
-                return;
-            }
-            html = html.replace("Nombre", nombre);
-            console.log(html)
-            callback(null, html);
-            
-        })
-        
+    getHtmlReminder: async function (student) {
+
+      try {
+        const html= await readFileAsync(htmlRemindURL, 'utf-8');
+        const htmlReplaced= html.replace("Nombre", student.nombres);
+        return htmlReplaced;
+
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+
     }
 
     

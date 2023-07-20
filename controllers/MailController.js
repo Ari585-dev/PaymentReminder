@@ -21,13 +21,13 @@ let controller = {
         mailgun().messages().send(emailInfo, (error, body) => {
             if (error) {
                 console.log(error);
+                res.json
                 res.sendStatus(500);
-              } else {
-                res.sendStatus(200);
-              }
+              } 
         });
         //});
-      },
+      }
+
 
 }
 
