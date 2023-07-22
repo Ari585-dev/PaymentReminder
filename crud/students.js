@@ -4,15 +4,7 @@ module.exports={
 
     login: function(connection, mail, password) {  
         connection.query(`SELECT mail, password FROM students WHERE mail='${mail}' AND password='${password}'`, function(err, data) {
-          if (error) {
-            console.log(error);
-          } else if (results != null) {
-            console.log(results);
-            res.status(200).send(JSON.stringify(results[0]));
-          } else {
-            console.log(results);
-            res.status(404).send();
-          }
+          
         });
       //});
     },

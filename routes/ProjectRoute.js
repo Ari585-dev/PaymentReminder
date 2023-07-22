@@ -13,7 +13,7 @@ const route= express.Router();
 route.post('/send-email', MailConroller.sendMail); //send email
 route.get('/notifyStudents', MainController.notifyAllPayment);
 //routes Students Controller
-route.post('/login', StudentsController.login)
+route.post('/login', StudentsController.studentsLogin);
 ///login
 ///getStudent data by his id (for app display his name etc)
 route.get('/students', StudentsController.allStudents); // get all students (all remind payment 1st day)
@@ -24,5 +24,7 @@ route.get('/nopayment', StudentsController.studentsWithoutPayment); // get stude
 
 //getStatus payment open or not
 //getDate date of the payment
+
+
 
 module.exports= route;

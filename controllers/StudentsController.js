@@ -27,7 +27,27 @@ let controller = {
           return [];
         } 
         
-     }
+     },
+
+     studentsLogin: async function(req, res) {
+      let params = req.body;
+      console.log(params);
+
+      if (!params.mail || !params.password) {
+        return res.status(400).send("Los campos 'mail' y 'password' son requeridos.");
+      }
+
+        students.login(connection, params.mail, params.password);
+      try {
+
+        return res.status(200).json({ message: "You have been logged successfully" });
+        
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+      }
+      
+    },
 }
 
 module.exports = controller;
