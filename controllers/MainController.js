@@ -12,7 +12,7 @@ let controller = {
           const students = await StudentsController.allStudents();
           for (const student of students) {
             const html = await MessageController.getHtmlOpenPayment(student);
-            await MailController.sendMail(student.correo, html, student.correo, html);
+            await MailController.sendMail(student.mail, html, student.mail, html);
           }
           res.status(200).send(students);
         } catch (err) {
@@ -28,7 +28,7 @@ let controller = {
             const students = await StudentsController.studentsWithoutPayment();
             for (const student of students) {
               const html = await MessageController.getHtmlReminder(student, date);
-              await MailController.sendMail(student.correo, html, student.correo, html);
+              await MailController.sendMail(student.mail, html, student.mail, html);
             }
           } catch (err) {
             // Handle the error

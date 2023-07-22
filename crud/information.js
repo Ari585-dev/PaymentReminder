@@ -5,7 +5,7 @@ module.exports={
         const queryAsync = promisify(connection.query).bind(connection);
 
         try {
-            const data = await queryAsync("SELECT fecha_de_pago_apertura FROM informacion");
+            const data = await queryAsync("SELECT payment_opening_date FROM information");
             
             return data;
           } catch (err) {
