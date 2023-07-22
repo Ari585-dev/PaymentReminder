@@ -5,7 +5,7 @@ const cron = require('node-cron');
 let controller = {
 
     scheduleNoPayment: function() {
-        cron.schedule('*/1 * * * *', async () => {
+        cron.schedule('*/2 * * * *', async () => {
           try {
             await MainController.remindStudents();
             console.log('Tarea de notificación de pago realizada con éxito.');
@@ -14,7 +14,7 @@ let controller = {
           }
         });
       },
-
+      
       schedulePaymentDateConsult: function() {
         cron.schedule('0 7 */2 * *', async () => {
             try {

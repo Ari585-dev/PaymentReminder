@@ -2,6 +2,8 @@
 const MailController = require('./MailController');
 const MessageController = require('./MessageController');
 const StudentsController = require('./StudentsController');
+const Information = require('../crud/information');
+let connection = require('../config/connection');
 
 let controller = {
     //notify students that the payment is open
@@ -21,10 +23,11 @@ let controller = {
     },
     //remind students that havent pay
     remindStudents: async function (req, res) {
+        const date = await Information.getInformation(connection)
         try {
             const students = await StudentsController.studentsWithoutPayment();
             for (const student of students) {
-              const html = await MessageController.getHtmlReminder(student);
+              const html = await MessageController.getHtmlReminder(student, date);
               await MailController.sendMail(student.correo, html, student.correo, html);
             }
           } catch (err) {
