@@ -2,12 +2,24 @@ const { promisify } = require('util');
 
 module.exports={
 
-    login: function(connection, mail, password) {  
-        connection.query(`SELECT mail, password FROM students WHERE mail='${mail}' AND password='${password}'`, function(err, data) {
-          
-        });
-      //});
-    },
+  login: async function(connection, mail, password) {  
+    const queryAsync = promisify(connection.query).bind(connection);
+  
+    try {
+      const data = await queryAsync(`SELECT mail, password FROM students WHERE mail='${mail}' AND password='${password}'`);
+  
+      if (data.length > 0) {
+
+        return true;
+        
+      } else {
+
+        return false;
+      }
+    } catch (err) {
+      throw err;
+    }
+  },
     
     getAllStudents: function(connection) {
         return new Promise(function(resolve, reject) {
