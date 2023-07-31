@@ -12,7 +12,7 @@ let controller = {
     getHtmlOpenPayment: async function(student) {
         try {
           const html = await readFileAsync(htmlOpenURL, 'utf8');
-          const replacedHtml = html.replace("Nombre", student.nombres);
+          const replacedHtml = html.replace("Nombre", student.name);
           //console.log(replacedHtml);
           return replacedHtml;
         } catch (error) {
@@ -24,11 +24,11 @@ let controller = {
       getHtmlReminder: async function (student, date) {
         try {
           const html = await readFileAsync(htmlRemindURL, 'utf-8');
-          let htmlReplaced = html.replace("Nombre", student.nombres);
+          let htmlReplaced = html.replace("Nombre", student.name);
           console.log(date); // Just for debugging purposes to see the date value
       
           // Access the necessary property and extract the date value
-          const payment_opening_date = date[0].fecha_de_pago_apertura;
+          const payment_opening_date = date[0].payment_opening_date;
           const extractedDate = payment_opening_date.toISOString().split("T")[0];
       
           htmlReplaced = htmlReplaced.replace("Fecha", extractedDate);

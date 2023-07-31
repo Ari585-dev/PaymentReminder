@@ -1,6 +1,25 @@
 const { promisify } = require('util');
 
 module.exports={
+
+  login: async function(connection, mail, password) {  
+    const queryAsync = promisify(connection.query).bind(connection);
+  
+    try {
+      const data = await queryAsync(`SELECT mail, password FROM students WHERE mail='${mail}' AND password='${password}'`);
+  
+      if (data.length > 0) {
+
+        return true;
+        
+      } else {
+
+        return false;
+      }
+    } catch (err) {
+      throw err;
+    }
+  },
     
     getAllStudents: function(connection) {
         return new Promise(function(resolve, reject) {
@@ -18,12 +37,14 @@ module.exports={
         const queryAsync = promisify(connection.query).bind(connection);
     
         try {
-          const data = await queryAsync("SELECT * FROM students WHERE matricula = false");
+          const data = await queryAsync("SELECT * FROM students WHERE payed = false");
           return data;
         } catch (err) {
           throw err;
         }
       }
+
+
 
     /* insertar:function(connection,datos,archivos,funcion){
         connection.query("INSERT INTO discos ( nombre, imagen, requisitos) VALUES (?,?,?)",[datos.nombre, 

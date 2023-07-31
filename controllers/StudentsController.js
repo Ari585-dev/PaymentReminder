@@ -27,7 +27,33 @@ let controller = {
           return [];
         } 
         
-     }
+     },
+
+     studentsLogin: async function(req, res) {
+      let params = req.body;
+      console.log(params);
+    
+      if (!params.mail || !params.password) {
+        return res.status(400).send("Los campos 'mail' y 'password' son requeridos.");
+      }
+    
+      try {
+        const isLoginValid = await students.login(connection, params.mail, params.password);
+    
+        if (isLoginValid) {
+
+          return res.status(200).json({ message: "You have been logged successfully" });
+          
+        } else {
+        
+          return res.status(401).json({ message: "Invalid credentials" });
+        }
+    
+      } catch (error) {
+        console.log(error);
+        return res.status(500).send("Error en el servidor");
+      }
+    }
 }
 
 module.exports = controller;
