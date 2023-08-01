@@ -12,6 +12,7 @@ const route= express.Router();
 //email payment recieved
 route.post('/send-email', MailConroller.sendMail); //send email
 route.get('/notifyStudents', MainController.notifyAllPayment);
+
 //routes Students Controller
 route.post('/login', StudentsController.studentsLogin);
 ///login

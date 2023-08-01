@@ -31,7 +31,7 @@ let controller = {
 
      studentsLogin: async function(req, res) {
       let params = req.body;
-      console.log(params);
+      
     
       if (!params.mail || !params.password) {
         return res.status(400).send("Los campos 'mail' y 'password' son requeridos.");
