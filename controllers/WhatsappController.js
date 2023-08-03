@@ -6,12 +6,12 @@ const TWILIO_SK = process.env.TWILIOTOKEN;
 const client = require('twilio')(TWILIO_ID, TWILIO_SK);
 
 let controller = {
-    sendWh: async function (req, res) {
+    sendWh: async function (req, res, cellnumber, text) {
         try {
             const message = await client.messages.create({
-                body: 'Hola desde NodeJS',
+                body: text,
                 from: 'whatsapp:+14155238886',
-                to: 'whatsapp:+573209928242'
+                to: `whatsapp:+57${cellnumber}`
             });
             console.log(message.sid);
             return res.status(200).json({ message: message.body, origin: message.from });
