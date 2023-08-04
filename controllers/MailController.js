@@ -3,7 +3,7 @@ const mg = require('mailgun-js')
 
 let controller = {
     
-    sendMail: function (req, res, correo, html) {
+    sendMail: function (req, res, correo, html, subject) {
         console.log(correo);
         //console.log(html);
         //MessageController.getHtmlOpenPayment(nombre, (error, html) => {
@@ -15,7 +15,7 @@ let controller = {
         emailInfo = {
           from: `"${process.env.NAME}" <${process.env.EMAIL}>`,
           to: correo,
-          subject: 'User Registered',
+          subject: subject,
           html: html
         };
         mailgun().messages().send(emailInfo, (error, body) => {

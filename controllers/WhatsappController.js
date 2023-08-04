@@ -14,11 +14,11 @@ let controller = {
                 to: `whatsapp:+57${cellnumber}`
             });
             console.log(message.sid);
-            return res.status(200).json({ message: message.body, origin: message.from });
+           /*  return res.status(200).json({ message: message.body, origin: message.from }); */
            
         } catch (error) {
             console.error('Message not delivered because:', error);
-            return res.status(500).send(error);
+            /* return res.status(500).send(error); */
             
         }
     },
