@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
+
+
 const readFileAsync = util.promisify(fs.readFile);
 
 const htmlOpenURL = path.join(__dirname, '../templates/OpenPayment.html');
@@ -22,16 +24,11 @@ let controller = {
       },
 
       getHtmlReminder: async function (student, date) {
+        
         try {
           const html = await readFileAsync(htmlRemindURL, 'utf-8');
           let htmlReplaced = html.replace("Nombre", student.name);
-          console.log(date); // Just for debugging purposes to see the date value
-      
-          // Access the necessary property and extract the date value
-          const payment_opening_date = date[0].payment_opening_date;
-          const extractedDate = payment_opening_date.toISOString().split("T")[0];
-      
-          htmlReplaced = htmlReplaced.replace("Fecha", extractedDate);
+          htmlReplaced = htmlReplaced.replace("Fecha", date);
       
           return htmlReplaced;
         } catch (error) {

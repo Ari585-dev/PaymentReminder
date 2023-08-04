@@ -13,8 +13,9 @@ app.use(bodyParser.json());
 
 app.use('/api', project_routes);
 
-/* controller.scheduleNoPayment();
-controller.schedulePaymentDateConsult(); */
+/* controller.scheduleNoPayment(); */
+/* controller.schedulePaymentDateConsult();  */
+controller.scheduleNotifyAll();
 
 
 

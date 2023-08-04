@@ -2,6 +2,7 @@ const express = require('express')
 const MailConroller=require('../controllers/MailController');
 const StudentsController=require('../controllers/StudentsController');
 const MainController=require('../controllers/MainController');
+const WhatsappController=require('../controllers/WhatsappController');
 
 const route= express.Router();
 
@@ -12,6 +13,8 @@ const route= express.Router();
 //email payment recieved
 route.post('/send-email', MailConroller.sendMail); //send email
 route.get('/notifyStudents', MainController.notifyAllPayment);
+route.post('/sendwh', WhatsappController.sendWh);
+
 //routes Students Controller
 route.post('/login', StudentsController.studentsLogin);
 ///login
