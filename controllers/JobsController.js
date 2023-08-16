@@ -9,9 +9,9 @@ let controller = {
         cron.schedule('*/1 * * * *', async () => {
           try {
             await MainController.remindStudents();
-            console.log('Tarea de notificación de pago realizada con éxito.');
+            console.log('Successful : Remind those who havent paid.');
           } catch (err) {
-            console.error('Error al realizar la tarea de notificación de pago:', err);
+            console.error('Error : Remind those who havent paid.', err);
           }
         });
       },
@@ -20,9 +20,9 @@ let controller = {
         cron.schedule('*/1 * * * *', async () => {
             try {
               await information.getOpeningDate(connection);
-              console.log('Tarea de notificación de pago realizada con éxito.');
+              console.log('Successful : Consult date payment.');
             } catch (err) {
-              console.error('Error al realizar la tarea de notificación de pago:', err);
+              console.error('Error : Consult date payment ; ', err);
             }
           });
       },
@@ -31,9 +31,9 @@ let controller = {
         cron.schedule('*/1 * * * *', async () => {
             try {
               await MainController.notifyAllPayment();
-              console.log('Tarea de notificación de pago realizada con éxito.');
+              console.log('Successful : Notify students of date payment open.');
             } catch (err) {
-              console.error('Error al realizar la tarea de notificación de pago:', err);
+              console.error('Error : Notify students of date payment open ; ', err);
             }
           });
       },

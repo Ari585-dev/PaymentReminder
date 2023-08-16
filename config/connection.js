@@ -8,17 +8,15 @@ var conexion= mysql.createConnection(
 
     }
 );
+
 conexion.connect(
-(err)=>{
-    if(!err){
-
-        console.log('Conexión establecida');
-    }else{
-        console.log('Error en la Conexión');
-
+    (err)=>{
+        if(!err){
+            console.log('Conexión established');
+        }else{
+            console.log('Error in the conexion');
+        }
     }
-}
-
 );
 
 module.exports=conexion;

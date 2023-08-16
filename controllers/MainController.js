@@ -4,51 +4,56 @@ const MessageController = require('./MessageController');
 const StudentsController = require('./StudentsController');
 const WhatsappController = require('./WhatsappController');
 const Information = require('../crud/information');
+const xmlController = require('./xmlController')
 let connection = require('../config/connection');
 
 let controller = {
-    //notify students that the payment is open
-    notifyAllPayment: async function(req, res) {
-        try {
-          const students = await StudentsController.allStudents();
-          const mssg= "Estimado estudiante, la Universidad Distrital Francisco José de Caldas le recuerda que el pago de la matrícula está actualmente abierto 😜 wasaaaaaaa"
-          const subject= "UNIERSIDAD DISTRITAL: ¡PAGO DE MATRÍCULA ABIERTO!"
-          for (const student of students) {
+  //notify students that the payment is open
+    notifyAllPayment: async function (req, res) {
+      try {
+        const students = await StudentsController.allStudents();
+        tag = 'notifyAll'; // Define tag here
+        for (const student of students) {
+          try {
+            const [title, body] = await xmlController.getInfo(tag);
             const html = await MessageController.getHtmlOpenPayment(student);
-            await MailController.sendMail(student.mail, html, student.mail, html, subject);
-            await WhatsappController.sendWh(student.phone, mssg, student.phone, mssg );
+            await MailController.sendMail('req', 'res', student.mail, html, title);
+            //await WhatsappController.sendWh('req', 'res', student.phone, body);
+          } catch (error) {
+            console.error('An error occurred:', error);
           }
-          
-        } catch (err) {
-          // Handle the error
-          console.error(err);
-          
         }
+      } catch (err) {
+        console.error(err);
+      }
     },
-    //remind students that havent pay
+  
     remindStudents: async function (req, res) {
-        const openingDate = await Information.getOpeningDate(connection)
-        const closingDate= await Information.getClosingDate(connection);
-        try {
-          const mssg= `Desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite ${closingDate}`
-          const subject= "UNIERSIDAD DISTRITAL: USTED NO HA PAGADO"
-            const students = await StudentsController.studentsWithoutPayment();
-            for (const student of students) {
-              const html = await MessageController.getHtmlReminder(student, openingDate);
-              await MailController.sendMail(student.mail, html, student.mail, html, subject);
-              await WhatsappController.sendWh(student.phone, mssg, student.phone, mssg );
-              
-            }
-          } catch (err) {
-            // Handle the error
-            console.error(err);
-            res.status(500).send("An error occurred");
+      try {
+        tag = 'remindStudents'; // Define tag here
+        const students = await StudentsController.studentsWithoutPayment();
+        for (const student of students) {
+          try {
+            const [title, body] = await xmlController.getInfo(tag);
+            const openingDate = await Information.getOpeningDate(connection);
+            const closingDate = await Information.getClosingDate(connection);
+            const html = await MessageController.getHtmlReminder(student, openingDate);
+            const mssg = body + " " + closingDate;
+            await MailController.sendMail('req', 'res', student.mail, html, title);
+            //await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          } catch (error) {
+            console.error('An error occurred:', error);
           }
+        }
+      } catch (err) {
+        console.error(err);
+        res.status(500).send("An error occurred");
+      }
     },
-    //payment succesfully recieved
-    notifyPaid: function (req, res) {
-        
-    },  
+  //payment succesfully recieved
+  notifyPaid: function (req, res) {
+
+  },
 }
 
 module.exports = controller;

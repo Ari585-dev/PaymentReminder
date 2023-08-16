@@ -1,22 +1,22 @@
-const express = require('express');
-const controller = require('./controllers/JobsController');
-const bodyParser = require('body-parser');
-
-const app= express();
-
-const project_routes= require('./routes/ProjectRoute');
-
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+const express = require('express')
+const controller = require('./controllers/JobsController')
+const bodyParser = require('body-parser')
 
 
+const app= express()
 
-app.use('/api', project_routes);
+const project_routes= require('./routes/ProjectRoute')
 
-/* controller.scheduleNoPayment(); */
-/* controller.schedulePaymentDateConsult();  */
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
+
+
+
+app.use('/api', project_routes)
+
+controller.scheduleNoPayment();
+controller.schedulePaymentDateConsult();  
 controller.scheduleNotifyAll();
-
 
 
 module.exports = app;
