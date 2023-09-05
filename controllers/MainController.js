@@ -3,9 +3,9 @@ const MailController = require('./MailController');
 const MessageController = require('./MessageController');
 const StudentsController = require('./StudentsController');
 const WhatsappController = require('./WhatsappController');
-const Information = require('../crud/information');
-const xmlController = require('./xmlController')
-let connection = require('../config/connection');
+const Date = require('../crud/Dates');
+const xmlController = require('./XmlController')
+let connection = require('../config/Connection');
 
 let controller = {
   //notify students that the payment is open
@@ -35,8 +35,8 @@ let controller = {
         for (const student of students) {
           try {
             const [title, body] = await xmlController.getInfo(tag);
-            const openingDate = await Information.getOpeningDate(connection);
-            const closingDate = await Information.getClosingDate(connection);
+            const openingDate = await Date.getOpeningDate(connection);
+            const closingDate = await Date.getClosingDate(connection);
             const html = await MessageController.getHtmlReminder(student, openingDate);
             const mssg = body + " " + closingDate;
             await MailController.sendMail('req', 'res', student.mail, html, title);
