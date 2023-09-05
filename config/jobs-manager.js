@@ -1,7 +1,7 @@
-const MainController = require('./MainController');
-const information = require('../crud/Dates');
+const MainController = require('../controllers/notify-controller');
+const information = require('../crud/dates');
 const cron = require('node-cron');
-const connection = require('../config/Connection');
+const connection = require('./connection');
 
 let controller = {
 

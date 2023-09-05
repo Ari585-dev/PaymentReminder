@@ -1,8 +1,8 @@
 const express = require('express')
-const MailConroller=require('../controllers/MailController');
-const StudentsController=require('../controllers/StudentsController');
-const MainController=require('../controllers/MainController');
-const WhatsappController=require('../controllers/WhatsappController');
+const MailConroller=require('../controllers/mail-controller');
+const StudentsController=require('../controllers/students-controller');
+const MainController=require('../controllers/notify-controller');
+const WhatsappController=require('../controllers/whatsapp-controller');
 
 const route= express.Router();
 

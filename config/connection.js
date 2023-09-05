@@ -5,7 +5,6 @@ var conexion= mysql.createConnection(
         user:'root',
         password:'',
         database:'universidad'
-
     }
 );
 

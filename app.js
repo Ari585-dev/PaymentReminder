@@ -1,11 +1,11 @@
 const express = require('express')
-const controller = require('./controllers/JobsController')
+const controller = require('./config/jobs-manager')
 const bodyParser = require('body-parser')
-const Date = require('./crud/Dates');
-let connection = require('./config/Connection');
+const Date = require('./crud/dates');
+let connection = require('./config/connection');
 const app= express()
 
-const project_routes= require('./routes/ProjectRoute')
+const project_routes= require('./routes/routes')
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())

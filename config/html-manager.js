@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
-const htmlOpenURL = path.join(__dirname, '../templates/OpenPayment.html');
-const htmlRemindURL = path.join(__dirname, '../templates/Reminder.html');
-const htmlPaid = path.join(__dirname, '../templates/Paid.html');
+const htmlOpenURL = path.join(__dirname, '../templates/openPayment.html');
+const htmlRemindURL = path.join(__dirname, '../templates/reminder.html');
+const htmlPaid = path.join(__dirname, '../templates/paid.html');
 
 let controller = {
     
