@@ -6,28 +6,19 @@ const WhatsappController=require('../controllers/WhatsappController');
 
 const route= express.Router();
 
-//routes Mail Controller
-
-//email payment open
-//email reminder to pay
-//email payment recieved
-route.post('/send-email', MailConroller.sendMail); //send email
-route.get('/notifyStudents', MainController.notifyAllPayment);
+// send messages 
+route.post('/send-email', MailConroller.sendMail); 
 route.post('/sendwh', WhatsappController.sendWh);
 
-//routes Students Controller
+//notify functions
+route.get('/notifyStudents', MainController.notifyAllPayment);
+route.get('/nopayment', StudentsController.studentsWithoutPayment);
+route.post('/studentPaid', StudentsController.studentPaid);
+
+//mobile apis
 route.post('/login', StudentsController.studentsLogin);
-///login
-///getStudent data by his id (for app display his name etc)
-route.get('/students', StudentsController.allStudents); // get all students (all remind payment 1st day)
-route.get('/nopayment', StudentsController.studentsWithoutPayment); // get students that haven't pay
-//get if student paid by his id
 
-//routes University Controller
-
-//getStatus payment open or not
-//getDate date of the payment
-
-
+//retrieve data 
+route.get('/students', StudentsController.allStudents);
 
 module.exports= route;

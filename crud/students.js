@@ -7,13 +7,9 @@ module.exports={
   
     try {
       const data = await queryAsync(`SELECT mail, password FROM students WHERE mail='${mail}' AND password='${password}'`);
-  
       if (data.length > 0) {
-
         return true;
-        
       } else {
-
         return false;
       }
     } catch (err) {
@@ -21,55 +17,26 @@ module.exports={
     }
   },
     
-    getAllStudents: function(connection) {
-        return new Promise(function(resolve, reject) {
-          connection.query("SELECT * FROM students", function(err, data) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(data);
-            }
-          });
-        });
-      },
-      
-      getAllStudentsWithoutPayment: async function(connection) {
-        const queryAsync = promisify(connection.query).bind(connection);
-    
-        try {
-          const data = await queryAsync("SELECT * FROM students WHERE payed = false");
-          return data;
-        } catch (err) {
-          throw err;
+  getAllStudents: function(connection) {
+    return new Promise(function(resolve, reject) {
+      connection.query("SELECT * FROM students", function(err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
         }
-      }
-
-
-
-    /* insertar:function(connection,datos,archivos,funcion){
-        connection.query("INSERT INTO discos ( nombre, imagen, requisitos) VALUES (?,?,?)",[datos.nombre, 
-        archivos.filename, datos.requisitos],
-         funcion);
+      });
+    });
+  },
     
-    },
-    
-    retornaID:function(connection,id,funcion){
-        connection.query("SELECT * FROM discos WHERE id=?",[id], funcion);
-    
-    },
-    
-    borrar:function(connection,id,funcion){
-        connection.query("DELETE FROM discos WHERE id=?",[id],funcion);
-    
-    },
-    actualizar:function(connection,datos,funcion){
-        connection.query("UPDATE discos SET nombre=?, requisitos=? WHERE id=? ",[datos.nombre, datos.requisitos, datos.id], funcion);
-    
-    },
-    actualizarimg:function(connection,datos,archivo,funcion){
-        connection.query("UPDATE discos SET imagen=? WHERE id=? ",[archivo.filename, datos.id], funcion);
-    
+  getAllStudentsWithoutPayment: async function(connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync("SELECT * FROM students WHERE payed = false");
+      return data;
+    } catch (err) {
+      throw err;
     }
-     */
-    
-    }
+  }
+
+}
