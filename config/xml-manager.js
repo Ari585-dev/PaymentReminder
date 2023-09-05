@@ -1,6 +1,6 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
-const filePath = 'templates/Information.xml';
+const filePath = '../templates/information.xml';
 
 let controller = {
     getInfo: function(tag) {

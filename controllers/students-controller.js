@@ -1,10 +1,10 @@
-let connection = require('../config/Connection');
-const students = require('../crud/Students');
-const info = require('../crud/Dates');
+let connection = require('../config/connection');
+const students = require('../crud/students');
+const info = require('../crud/dates');
 const moment = require('moment');
 //const WhatsappController = require('./WhatsappController');
-const MailController = require('./MailController');
-const MessageController = require('./MessageController');
+const MailController = require('./mail-controller');
+const MessageController = require('../config/html-manager');
 
 require('dotenv').config();
 

@@ -1,11 +1,11 @@
 //const students = require('../crud/students');
-const MailController = require('./MailController');
-const MessageController = require('./MessageController');
-const StudentsController = require('./StudentsController');
-const WhatsappController = require('./WhatsappController');
-const Date = require('../crud/Dates');
-const xmlController = require('./XmlController')
-let connection = require('../config/Connection');
+const MailController = require('./mail-controller');
+const MessageController = require('../config/html-manager');
+const StudentsController = require('./students-controller');
+const WhatsappController = require('./whatsapp-controller');
+const Date = require('../crud/dates');
+const xmlController = require('../config/xml-manager')
+let connection = require('../config/connection');
 
 let controller = {
   //notify students that the payment is open
