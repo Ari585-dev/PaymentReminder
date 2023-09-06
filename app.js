@@ -17,7 +17,9 @@ controller.scheduleNoPayment();
 controller.schedulePaymentDateConsult();  
 controller.scheduleNotifyAll();
 */
-
+// apertura -> 1
+// notify all (1mes)
+// 
 Date.getRemindDays(connection)
   .then((dates) => {
     console.log(dates);
