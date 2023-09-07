@@ -1,6 +1,6 @@
 let connection = require('../config/connection');
 const students = require('../crud/students');
-const info = require('../crud/dates');
+const Date = require('../crud/dates');
 const moment = require('moment');
 //const WhatsappController = require('./WhatsappController');
 const MailController = require('./mail-controller');
@@ -47,7 +47,7 @@ let controller = {
       }
     } catch (error) {
       console.log(error);
-      return res.status(500).send("Error en el servidor");
+      return res.status(500).send("Server error");
     }
   },
 
@@ -71,7 +71,7 @@ let controller = {
       return res.status(200).json({ message: "Student payment received succesfully" });
     } catch (error) {
       console.log(error);
-      return res.status(500).send("Error en el servidor");
+      return res.status(500).send("Server error");
     }
   }
 }

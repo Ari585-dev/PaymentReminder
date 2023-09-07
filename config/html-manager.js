@@ -6,7 +6,7 @@ const htmlOpenURL = path.join(__dirname, '../templates/openPayment.html');
 const htmlRemindURL = path.join(__dirname, '../templates/reminder.html');
 const htmlPaid = path.join(__dirname, '../templates/paid.html');
 
-let controller = {
+let htmlManager = {
     
   getHtmlOpenPayment: async function(student) {
     try {
@@ -45,4 +45,4 @@ let controller = {
   
 }
 
-module.exports = controller;
+module.exports = htmlManager;

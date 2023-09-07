@@ -11,12 +11,12 @@ const connection = mysql.createConnection({
 
 try {
     connection.connect();
-    console.log('¡CONEXIÓN EXITOSA!');
+    console.log('¡successful connection!');
     app.listen(port, () => {
         console.log("listening in "+port)
     })
 } catch (error) {
-    console.error('Error al conectar a la base de datos: ' + error.stack);
+    console.error('An error has occurred while connecting to the database : ' + error.stack);
 } finally {
     connection.end();
 }
