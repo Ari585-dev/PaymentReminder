@@ -1,14 +1,16 @@
 const notifyController = require('../controllers/notify-controller');
-const information = require('../crud/dates');
+const Date = require('../crud/dates');
 const cron = require('node-cron');
 const connection = require('./connection');
 
-let controller = {
+let jobsManager = {
 
-  scheduleNoPayment: function () { // days,dates
+  scheduleNoPayment: function (today, dates) { // days,dates
     cron.schedule('*/1 * * * *', async () => { //3
       try {
+        
         //if today <= dates[size-1]
+        
         await notifyController.remindStudents();
         //else -> extraordinary
         console.log('Successful : Remind those who havent paid.');
@@ -23,7 +25,7 @@ let controller = {
     });
   },
 
-  scheduleNotifyAll: function () {
+  scheduleNotifyAll: function (today, dates) {
     cron.schedule('*/1 * * * *', async () => {
       try {
         await notifyController.notifyAllPayment();
@@ -45,8 +47,12 @@ let controller = {
           console.error(error);
         });
       //
-      // call scheduleNotifyAll -> hoy - > dates[0]
+      let currentDate = new Date().format("MMMM Do YYYY")
+       // call scheduleNotifyAll -> hoy - > dates[0]
       // call scheduleNoPayment -> hoy -> dates[1]
+      this.notifyAllPayment(currentDate, dates[0])
+      this.scheduleNoPayment(currentDate, dates[1])
+     
       } catch (err) {
         console.error('Error : Notify students of date payment open ; ', err);
       }
@@ -56,4 +62,4 @@ let controller = {
 
 }
 
-module.exports = controller;
+module.exports = jobsManager;

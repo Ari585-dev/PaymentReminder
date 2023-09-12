@@ -2,7 +2,7 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const filePath = '../templates/information.xml';
 
-let controller = {
+let xmlManager = {
     getInfo: function(tag) {
         return new Promise((resolve, reject) => {
             fs.readFile(filePath, 'utf8', (err, data) => {
@@ -30,4 +30,4 @@ let controller = {
     },
 };
 
-module.exports = controller;
+module.exports = xmlManager;
