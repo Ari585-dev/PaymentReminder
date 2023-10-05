@@ -1,6 +1,7 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
-const filePath = '../templates/information.xml';
+const path = require('path');
+const filePath = path.join(__dirname, '../templates/Information.xml');
 
 let xmlManager = {
     getInfo: function(tag) {

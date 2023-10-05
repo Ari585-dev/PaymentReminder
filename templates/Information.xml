@@ -8,7 +8,7 @@
         <body></body>
     </example>
     <remindStudents>
-        <title>Desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite</title>
-        <body>UNIERSIDAD DISTRITAL: USTED NO HA PAGADO</body>
+        <title>UNIERSIDAD DISTRITAL: USTED NO HA PAGADO</title>
+        <body>Desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite</body>
     </remindStudents>
 </Messages>

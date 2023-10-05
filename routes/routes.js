@@ -1,24 +1,24 @@
 const express = require('express')
-const MailConroller=require('../controllers/mail-controller');
-const StudentsController=require('../controllers/students-controller');
-const MainController=require('../controllers/notify-controller');
-const WhatsappController=require('../controllers/whatsapp-controller');
+const mailController=require('../controllers/mail-controller');
+const studentsController=require('../controllers/students-controller');
+const notifyController=require('../controllers/notify-controller');
+const whatsappController=require('../controllers/whatsapp-controller');
 
 const route= express.Router();
 
 // send messages 
-route.post('/send-email', MailConroller.sendMail); 
-route.post('/sendwh', WhatsappController.sendWh);
+route.post('/send-email', mailController.sendMail); 
+route.post('/sendwh', whatsappController.sendWh);
 
 //notify functions
-route.get('/notifyStudents', MainController.notifyAllPayment);
-route.get('/nopayment', StudentsController.studentsWithoutPayment);
-route.post('/studentPaid', StudentsController.studentPaid);
+route.get('/notifyStudents', notifyController.notifyAllPayment);
+route.get('/nopayment', studentsController.studentsWithoutPayment);
+route.post('/studentPaid', studentsController.studentPaid);
 
 //mobile apis
-route.post('/login', StudentsController.studentsLogin);
+route.post('/login', studentsController.studentsLogin);
 
 //retrieve data 
-route.get('/students', StudentsController.allStudents);
+route.get('/students', studentsController.allStudents);
 
 module.exports= route;
