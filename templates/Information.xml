@@ -11,4 +11,8 @@
         <title>UNIERSIDAD DISTRITAL: USTED NO HA PAGADO</title>
         <body>Desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite</body>
     </remindStudents>
+    <remindExtraordinary>
+    <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, USTED NO HA PAGADO</title>
+    <body>Cordial saludo estudiante, la Universidad Distrital Francisco José de Caldas le informa que usted no ha realizado el pago de la matrícula y se encuentra en fecha de pago extraordinaria.</body>
+    </remindExtraordinary>
 </Messages>

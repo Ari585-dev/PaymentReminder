@@ -37,7 +37,7 @@ let controller = {
             const [title, body] = await xmlController.getInfo(tag);
             const openingDate = await Date.getOpeningDate(connection);
             const closingDate = await Date.getClosingDate(connection);
-            const html = await MessageController.getHtmlReminder(student, openingDate);
+            const html = await MessageController.getHtmlReminder(student, closingDate);
             const mssg = body + " " + closingDate;
             await MailController.sendMail('req', 'res', student.mail, html, title);
             //await WhatsappController.sendWh('req', 'res', student.phone, mssg);
@@ -49,6 +49,29 @@ let controller = {
         console.error(err);
         res.status(500).send("An error occurred");
       }
+    },
+
+    remindExtraordinary: async function (req, res){
+      try {
+        tag = 'remindExtraordinary'; // Define tag here
+        const students = await StudentsController.studentsWithoutPayment();
+        for (const student of students) {
+          try {
+            const [title, body] = await xmlController.getInfo(tag);
+            const extraordinaryDate = await Date.getExtraordinaryDate(connection);
+            const html = await MessageController.getHtmlExtraordinaryReminder(student, extraordinaryDate);
+            const mssg = body + " " + extraordinaryDate;
+            await MailController.sendMail('req', 'res', student.mail, html, title);
+            //await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        res.status(500).send("An error occurred");
+      }
+
     },
   //payment succesfully recieved
   notifyPaid: function (req, res) {

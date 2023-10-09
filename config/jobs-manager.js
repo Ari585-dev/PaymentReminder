@@ -6,7 +6,7 @@ const connection = require('./connection');
 
 let jobsManager = {
 
-  scheduleNoPayment: function (today, ordinaryDates, extraordinaryDates) { // days,dates
+  scheduleNoPayment: function (today, ordinaryDates, extraordinaryDates) { 
         
         
 
@@ -18,7 +18,7 @@ let jobsManager = {
         
        
         //else -> call extraordinaryMessage
-        if(today.isSameOrBefore(ordinaryDates[2])){
+        if(today.isSameOrBefore(ordinaryDates[ordinaryDates.length - 1])){
 
           notifyController.remindStudents();
 
@@ -33,17 +33,6 @@ let jobsManager = {
    
   },
 
-  scheduleNotifyAll: function () {
-    cron.schedule('*/1 * * * *', async () => {
-      try {
-        await notifyController.notifyAllPayment();
-        console.log('Successful : Notify students of date payment open.');
-      } catch (err) {
-        console.error('Error : Notify students of date payment open ; ', err);
-      }
-    });
-  }, 
-
   scheduleCheckDates: function () {
     cron.schedule('*/1 * * * *', async () => {
       try {
@@ -53,11 +42,11 @@ let jobsManager = {
           if(ordinaryDates && ordinaryDates.length>0){
             
             moment.locale("es");
-            //let currentDate = moment().format("MMMM Do YYYY");
-            const currentDate = moment('2023-06-14');
+            //let currentDate = moment()
+            const currentDate = moment('2023-06-17');
 
-            const ordinaryDatesMoment= [];
-            const extraordinaryDatesMoment=[];
+            const ordinaryDatesMoment = [];
+            const extraordinaryDatesMoment = [];
 
             for (const datesOrd of ordinaryDates) {
               const formatedDate = moment(datesOrd, "MMMM Do YYYY");
@@ -69,34 +58,35 @@ let jobsManager = {
               extraordinaryDatesMoment.push(formatedDate);
             }
 
-            
-            
-            if(currentDate.isSameOrAfter(ordinaryDatesMoment[0]) && currentDate.isBefore(ordinaryDatesMoment[ordinaryDatesMoment.length-1])){
-  
-              /* let daysBetween = currentDate.diff(ordinaryDatesMoment[0], 'days');
-              let milisecondsBetween = daysBetween * 8.64e+7; */
+            let daysBetween1 = [];
 
-             notifyController.notifyAllPayment();
+            for (let i = 0; i < ordinaryDatesMoment.length; i++) {
+              daysBetween1[i] = (ordinaryDatesMoment[i].diff(currentDate, 'days')) * 8.64e+7;
+            }
 
-        
+            if(currentDate.isBefore(ordinaryDatesMoment[0])){
               
-            }else if(currentDate.isBefore(ordinaryDatesMoment[0])){
-
-              const daysBetween = ordinaryDatesMoment[0].diff(currentDate, 'days');
-              const milisecondsBetween = daysBetween * 8.64e+7;
-
-              /* setTimeout(() => {
+               setTimeout(() => {
                 notifyController.notifyAllPayment();
-              }, milisecondsBetween);
-              */
-              console.log(milisecondsBetween);
+              }, daysBetween1[0]);
               
-            } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isSameOrBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
-              console.log("Sending extraordinaryMail reminder")
+
+               setTimeout(() => {
+                notifyController.remindStudents();
+              },  daysBetween1[1]);
+
+              setTimeout(() => {
+                notifyController.remindStudents();
+              },  daysBetween1[2]);
+
+              console.log("ms: "+ daysBetween1[0]+", "+ daysBetween1[1]+", "+ daysBetween1[2])
+ 
+            } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
+              notifyController.remindExtraordinary();
             } 
             
           }else{
-            console.log('No se encontraron fechas ordinarias.');
+            console.log('No Dates Found');
           }
 
           
@@ -104,21 +94,6 @@ let jobsManager = {
         .catch((error) => {
           console.error(error);
         });
-
-      
-/*      
-
-        if consultaDates => currentDate :
-         esperar(diff between currentDate - dates[0])notifyAll         
-         esperar (diff between currentDate-dates[1])scheduleNoPayment -> today, dates 
-         esperar (diff between currentDate-dates[2])scheduleNoPayment -> today, dates 
-         esperar (diff between currentDate-getExtraordinaryDate) -> today, dates
-      // 
-       */
-
-        /* else if () {
-
-        } */
      
       } catch (err) {
         console.error('Error : Notify students of date payment open ; ', err);
