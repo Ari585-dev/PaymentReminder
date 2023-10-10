@@ -32,7 +32,6 @@ module.exports = {
     }
   },
 
-
   getClosingDate: async function (connection) {
     const queryAsync = promisify(connection.query).bind(connection);
     try {
@@ -49,27 +48,44 @@ module.exports = {
   },
 
   getRemindDays: async function (connection) {
-    const queryAsync = promisify(connection.query).bind(connection);
+    
     try {
       let openingDate = await module.exports.getOpeningDate(connection);
       let closingDate = await module.exports.getClosingDate(connection);
+      let extraordinaryDate = await module.exports.getExtraordinaryDate(connection);
+      
       const openingDateMoment = moment(openingDate, "MMMM Do YYYY");
       const closingDateMoment = moment(closingDate, "MMMM Do YYYY");
-  
+      const extraordinaryDateMoment = moment(extraordinaryDate, "MMMM Do YYYY");
       // Calculate the number of days between opening and closing dates
       const daysInBetween = closingDateMoment.diff(openingDateMoment, 'days');
       const dayToRemind = Math.ceil(daysInBetween / 3);
-  
+      
       // Calculate reminder dates
-      const reminderDates = [];
+      const ordinaryDates = [];
       for (let i = 0; i < 3; i++) {
         const reminderDate = openingDateMoment.clone().add(i * dayToRemind, 'day');
-        reminderDates.push(reminderDate.format("MMMM Do YYYY"));
+        if(closingDateMoment.diff(reminderDate, 'days') < 0){
+          ordinaryDates.push(closingDateMoment);
+          break
+        }
+        ordinaryDates.push(reminderDate.format("MMMM Do YYYY"));
       }
-  
-      //console.log(reminderDates);
-  
-      return reminderDates;
+      
+      const extra_OrdinaryDiff = extraordinaryDateMoment.diff(closingDateMoment, 'days');
+      const extraRemind = Math.ceil(extra_OrdinaryDiff / 2)
+
+      const extraDays=[]
+      for(let i=0; i<2; i++){
+        const reminderDate = closingDateMoment.add(extraRemind, 'day')
+        if(extraordinaryDateMoment.diff(reminderDate, 'days') < 0){
+          ordinaryDates.push(extraordinaryDateMoment);
+          break
+        }
+        extraDays.push(reminderDate.format("MMMM Do YYYY"))
+      }
+
+      return [ordinaryDates, extraDays];
     } catch (err) {
       throw err;
     }

@@ -1,7 +1,7 @@
 const express = require('express')
-const controller = require('./config/jobs-manager')
+const jobs = require('./config/jobs-manager')
 const bodyParser = require('body-parser')
-const Date = require('./crud/dates');
+const date = require('./crud/dates');
 let connection = require('./config/connection');
 const app= express()
 
@@ -12,15 +12,15 @@ app.use(bodyParser.json())
 
 app.use('/api', project_routes)
 
-/*
-controller.scheduleNoPayment();
-controller.schedulePaymentDateConsult();  
-controller.scheduleNotifyAll();
-*/
+
+//jobs.scheduleNoPayment();
+jobs.scheduleCheckDates();  
+//jobs.scheduleNotifyAll();
+
 // apertura -> 1
 // notify all (1mes)
 // 
-Date.getRemindDays(connection)
+date.getRemindDays(connection)
   .then((dates) => {
     console.log(dates);
   })
