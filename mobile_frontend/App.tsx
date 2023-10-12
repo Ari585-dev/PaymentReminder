@@ -1,37 +1,42 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  Image,
-  Modal,
-  Alert,
-} from 'react-native';
+import {View,Text,TextInput,Pressable,Image, Modal,Alert,} from 'react-native';
 import React, {useState} from 'react';
 import tailwind from 'twrnc';
 import Home from './Home';
+import { checkCredentials, getStudent } from './api-utils'
 
 export default function LoginScreen() {
   const [modal, setModalVisible] = useState(false);
-  const [code, setCode] = useState(0);
-  const [password, setPassword] = useState(0);
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [student, setStudent] = useState({});
   //const [dates, setDates] = useState([])
+
   const login = () => {
-    if ([code, password].includes('')) {
+    if ([id, password].includes('')) {
       Alert.alert('Error', 'Ingrese todos los datos');
-      return 
-    } 
-    //if login data base
-    
-    setStudent({
-      code: code,
-      name: 'Julian Gomez',
-      career: 'Tec Sistematización de Datos',
-      paid: true,
-      fee: 123.21,
-    });
-    setModalVisible(true);
+      return;
+    }
+    console.log(id)
+    checkCredentials(id, password) // Use the checkCredentials function
+    .then(() => {
+      getStudent(id) // Use the checkCredentials function
+      .then((data) => {
+        setStudent({
+          id: id,
+          name: data.student[0].first_name + " " + data.student[0].last_name,
+          career: data.student[0].career,
+          paid: data.student[0].payed,
+          fee: data.student[0].tuition_value,
+        });
+      })
+      .catch((error) => {
+        console.error('Response:', error.response.data);
+      });
+      setModalVisible(true);
+    })
+    .catch((error) => {
+      console.error('Response:', error.response.data.message);
+    });    
   };
 
   const closeModal = () => {
@@ -52,8 +57,8 @@ export default function LoginScreen() {
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-4`}
           placeholderTextColor="#000"
-          placeholder="Ingresa codigo de estudiante"
-          onChangeText={setCode}
+          placeholder="Ingresa email"
+          onChangeText={setId}
         />
 
         <TextInput
@@ -87,3 +92,34 @@ export default function LoginScreen() {
     </View>
   );
 }
+/*
+
+    fetch('http://localhost:3000/api/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ mail: email, password: password }),
+})
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      // Handle response errors here
+      throw new Error('Login failed');
+    }
+  })
+  .then((data) => {
+    // If the login was successful, update the student state
+    setStudent(data);
+
+    // Show the modal
+    setModalVisible(true);
+  })
+  .catch((error) => {
+    console.error('Network error:', error);
+
+    // Handle the error or display a meaningful message to the user
+    console.log('Network error');
+  });
+  */ 

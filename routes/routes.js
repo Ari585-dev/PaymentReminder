@@ -20,5 +20,6 @@ route.post('/login', studentsController.studentsLogin);
 
 //retrieve data 
 route.get('/students', studentsController.allStudents);
+route.post('/getStudent', studentsController.getStudent);
 
 module.exports= route;
