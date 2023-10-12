@@ -3,6 +3,7 @@ const MailController = require('./mail-controller');
 const MessageController = require('../config/html-manager');
 const StudentsController = require('./students-controller');
 const WhatsappController = require('./whatsapp-controller');
+const DatesController = require('./dates-controller');
 const Date = require('../crud/dates');
 const xmlController = require('../config/xml-manager')
 let connection = require('../config/connection');
@@ -12,13 +13,15 @@ let controller = {
     notifyAllPayment: async function (req, res) {
       try {
         const students = await StudentsController.allStudents();
+        const datesOrd = await DatesController.closingDate();
+        const datesExt = await DatesController.extraordinaryDate();
         tag = 'notifyAll'; // Define tag here
         for (const student of students) {
           try {
-            const [title, body] = await xmlController.getInfo(tag);
-            const html = await MessageController.getHtmlOpenPayment(student);
-            await MailController.sendMail('req', 'res', student.mail, html, title);
-            //await WhatsappController.sendWh('req', 'res', student.phone, body);
+            const [title, body] = await xmlController.getInfo(tag, student, datesOrd, datesExt);
+            const html = await MessageController.getHtmlOpenPayment(student, datesOrd, datesExt);
+            //await MailController.sendMail('req', 'res', student.mail, html, title);
+            await WhatsappController.sendWh('req', 'res', student.phone, body);
           } catch (error) {
             console.error('An error occurred:', error);
           }

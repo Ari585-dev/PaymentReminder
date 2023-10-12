@@ -43,7 +43,7 @@ let jobsManager = {
             
             moment.locale("es");
             //let currentDate = moment()
-            const currentDate = moment('2023-06-17');
+            const currentDate = moment('2023-06-15');
 
             const ordinaryDatesMoment = [];
             const extraordinaryDatesMoment = [];
@@ -64,7 +64,7 @@ let jobsManager = {
               daysBetween1[i] = (ordinaryDatesMoment[i].diff(currentDate, 'days')) * 8.64e+7;
             }
 
-            if(currentDate.isBefore(ordinaryDatesMoment[0])){
+            if(currentDate.isSameOrBefore(ordinaryDatesMoment[0])){
               
                setTimeout(() => {
                 notifyController.notifyAllPayment();
@@ -79,7 +79,7 @@ let jobsManager = {
                 notifyController.remindStudents();
               },  daysBetween1[2]);
 
-              console.log("ms: "+ daysBetween1[0]+", "+ daysBetween1[1]+", "+ daysBetween1[2])
+              /* console.log("ms: "+ daysBetween1[0]+", "+ daysBetween1[1]+", "+ daysBetween1[2]) */
  
             } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
               notifyController.remindExtraordinary();

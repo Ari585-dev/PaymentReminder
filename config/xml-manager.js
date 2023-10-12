@@ -4,7 +4,7 @@ const path = require('path');
 const filePath = path.join(__dirname, '../templates/Information.xml');
 
 let xmlManager = {
-    getInfo: function(tag) {
+    getInfo: function(tag, student, ordinary, extraordinary) {
         return new Promise((resolve, reject) => {
             fs.readFile(filePath, 'utf8', (err, data) => {
                 if (err) {
@@ -21,8 +21,12 @@ let xmlManager = {
                     }
 
                     const obj = result.Messages[tag][0];
+                    let body = obj.body[0].replace(/date/g, ordinary);
+                    body = body.replace(/name/g, student.first_name);
+                    
                     const title = obj.title[0];
-                    const body = obj.body[0];
+                    obj.body[0] = body;
+
 
                     resolve([title, body]);
                 });
