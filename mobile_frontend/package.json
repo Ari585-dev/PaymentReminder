@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@ant-design/react-native": "^5.0.4",
+    "axios": "^1.5.1",
     "react": "18.2.0",
     "react-native": "0.72.4",
+    "react-native-vector-icons": "^10.0.0",
     "twrnc": "^3.6.4"
   },
   "devDependencies": {

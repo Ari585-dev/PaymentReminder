@@ -11,35 +11,37 @@ require('dotenv').config();
 
 let controller = {
 
-  allStudents: async function(req, res) {
-      try {
-        const data = await students.getAllStudents(connection);
-        // console.log(data);
-        return data;
-      } catch (err) {
-        // Handle the error
-        console.error(err);
-        return [];
-      }
-    },
+  allStudents: async function (req, res) {
+    try {
+      const data = await students.getAllStudents(connection);
+      // console.log(data);
+      return data;
+    } catch (err) {
+      // Handle the error
+      console.error(err);
+      return [];
+    }
+  },
 
-    studentsWithoutPayment: async function(req, res){
-      try {
-        const data= await students.getAllStudentsWithoutPayment(connection);
-        return data;
-      } catch (err) {
-        console.log(err);
-        return [];
-      } 
-    },
+  studentsWithoutPayment: async function (req, res) {
+    try {
+      const data = await students.getAllStudentsWithoutPayment(connection);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  },
 
-  studentsLogin: async function(req, res) {
+  studentsLogin: async function (req, res) {
+    console.log("reached login")
     let params = req.body;
-    if (!params.mail || !params.password) {
-      return res.status(400).send("'mail' and 'password' are required.");
+    if (!params.id || !params.password) {
+      return res.status(400).send("'id' and 'password' are required.");
     }
     try {
-      const isLoginValid = await students.login(connection, params.mail, params.password);
+      const isLoginValid = await students.login(connection, params.id, params.password);
+      console.log(params.id, params.password)
       if (isLoginValid) {
         return res.status(200).json({ message: "You have been logged successfully" });
       } else {
@@ -51,23 +53,40 @@ let controller = {
     }
   },
 
-  studentPaid: async function(req, res) {
+  getStudent: async function (req, res) {
+    let params = req.body;
+    console.log(params)
+    if (!params.id) {
+      return res.status(400).send("id is required");
+    }
+    try {
+      const data = await students.getStudent(connection, params.id);
+      console.log(data)
+      return res.status(200).json({ student: data });
+    } catch (err) {
+      // Handle the error
+      console.error(err);
+      return [];
+    }
+  },
+
+  studentPaid: async function (req, res) {
     let params = req.body;
     if (!params.id || !params.name || !params.mail) {
       return res.status(400).send("'id', 'name' and 'mail' are required.");
     }
     try {
-      const student = {id: params.id, name: params.name, mail: params.mail}
+      const student = { id: params.id, name: params.name, mail: params.mail }
       let date = new Date();
       moment.locale("es");
-      const parsedDate= moment(date, "YYYY-MM-DD");
+      const parsedDate = moment(date, "YYYY-MM-DD");
       date = parsedDate.format("MMMM Do YYYY, h:mm:ss a");
       const html = await MessageController.getHtmlPaid(student, date);
       //const mssg = body + " " + closingDate;
       await MailController.sendMail('req', 'res', student.mail, html, "PaymentDone");
       //wp part pending
       //await WhatsappController.sendWh('req', 'res', student.phone, mssg);
-      
+
       return res.status(200).json({ message: "Student payment received succesfully" });
     } catch (error) {
       console.log(error);
