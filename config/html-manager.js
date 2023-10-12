@@ -28,11 +28,16 @@ let htmlManager = {
     }
   },
 
-  getHtmlReminder: async function (student, date) {
+  getHtmlReminder: async function (student, ordinary, extraordinary) {
     try {
       const html = await readFileAsync(htmlRemindURL, 'utf-8');
-      let htmlReplaced = html.replace("Nombre", student.name);
-      htmlReplaced = htmlReplaced.replace("Fecha", date);
+      const students= [student.first_name, student.middle_name, student.last_name];
+      const fullName = students.join(' ');
+
+      let htmlReplaced = html.replace("Nombre", fullName);
+      htmlReplaced= htmlReplaced.replace("fecha1", ordinary);
+      htmlReplaced= htmlReplaced.replace("fecha2", extraordinary);
+      htmlReplaced= htmlReplaced.replace("total", student.tuition_value);
       return htmlReplaced;
     } catch (error) {
       console.error(error);
@@ -40,11 +45,14 @@ let htmlManager = {
     }
   },
 
-  getHtmlExtraordinaryReminder: async function (student, date) {
+  getHtmlExtraordinaryReminder: async function (student, extraordinary) {
     try {
       const html = await readFileAsync(htmlExtraordinaryRemindURL, 'utf-8');
-      let htmlReplaced = html.replace("Nombre", student.name);
-      htmlReplaced = htmlReplaced.replace("Fecha", date);
+      const students= [student.first_name, student.middle_name, student.last_name];
+      const fullName = students.join(' ');
+
+      let htmlReplaced = html.replace("Nombre", fullName);
+      htmlReplaced= htmlReplaced.replace("fecha2", extraordinary);
       return htmlReplaced;
     } catch (error) {
       console.error(error);

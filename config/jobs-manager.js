@@ -79,7 +79,7 @@ let jobsManager = {
                 notifyController.remindStudents();
               },  daysBetween1[2]);
 
-              /* console.log("ms: "+ daysBetween1[0]+", "+ daysBetween1[1]+", "+ daysBetween1[2]) */
+              console.log("ms: "+ daysBetween1[0]+", "+ daysBetween1[1]+", "+ daysBetween1[2])
  
             } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
               notifyController.remindExtraordinary();

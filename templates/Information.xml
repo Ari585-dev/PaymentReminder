@@ -1,7 +1,7 @@
 <Messages>
     <notifyAll>
         <title>UNIERSIDAD DISTRITAL: ¡PAGO DE MATRÍCULA ABIERTO!</title>
-        <body>Estimado name, la Universidad Distrital Francisco José de Caldas le recuerda que el pago de la matrícula está actualmente abierto, y que la fecha ordinaria de pago es en date</body>
+        <body>Estimado name, la Universidad Distrital Francisco José de Caldas le recuerda que el pago de la matrícula está actualmente abierto, y que la fecha límite ordinaria de pago  es en date</body>
     </notifyAll>
     <example>
         <title></title>
@@ -9,10 +9,10 @@
     </example>
     <remindStudents>
         <title>UNIERSIDAD DISTRITAL: USTED NO HA PAGADO</title>
-        <body>Desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite date</body>
+        <body>name, desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite</body>
     </remindStudents>
     <remindExtraordinary>
     <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, USTED NO HA PAGADO</title>
-    <body>Cordial saludo estudiante, la Universidad Distrital Francisco José de Caldas le informa que usted no ha realizado el pago de la matrícula y se encuentra en fecha de pago extraordinaria, esta tiene como día límite date</body>
+    <body>Cordial saludo name, la Universidad Distrital Francisco José de Caldas le informa que usted no ha realizado el pago de la matrícula y se encuentra en fecha de pago extraordinaria, esta tiene como día límite</body>
     </remindExtraordinary>
 </Messages>

@@ -11,9 +11,10 @@ route.post('/send-email', mailController.sendMail);
 route.post('/sendwh', whatsappController.sendWh);
 
 //notify functions
-route.get('/notifyStudents', notifyController.notifyAllPayment);
-route.get('/nopayment', studentsController.studentsWithoutPayment);
-route.post('/studentPaid', studentsController.studentPaid);
+route.post('/notifyStudents', notifyController.notifyAllPayment);
+route.post('/remindPayment', notifyController.remindStudents);
+route.post('/remindExtraordinary', notifyController.remindExtraordinary);
+route.post('/studentPaid', notifyController.notifyPaid);
 
 //mobile apis
 route.post('/login', studentsController.studentsLogin);
