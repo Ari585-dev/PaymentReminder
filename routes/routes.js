@@ -3,7 +3,7 @@ const mailController=require('../controllers/mail-controller');
 const studentsController=require('../controllers/students-controller');
 const notifyController=require('../controllers/notify-controller');
 const whatsappController=require('../controllers/whatsapp-controller');
-
+const datesController=require('../controllers/dates-controller-api')
 const route= express.Router();
 
 // send messages 
@@ -20,6 +20,7 @@ route.post('/login', studentsController.studentsLogin);
 
 //retrieve data 
 route.get('/students', studentsController.allStudents);
+route.get('/getDates', datesController.getDates);
 route.post('/getStudent', studentsController.getStudent);
 
 module.exports= route;

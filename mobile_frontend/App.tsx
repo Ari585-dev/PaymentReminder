@@ -2,23 +2,23 @@ import {View,Text,TextInput,Pressable,Image, Modal,Alert,} from 'react-native';
 import React, {useState} from 'react';
 import tailwind from 'twrnc';
 import Home from './Home';
-import { checkCredentials, getStudent } from './api-utils'
+import { checkCredentials, getStudent, getDates } from './api-utils'
 
 export default function LoginScreen() {
   const [modal, setModalVisible] = useState(false);
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [student, setStudent] = useState({});
-  //const [dates, setDates] = useState([])
+  const [dates, setDates] = useState({})
 
   const login = () => {
     if ([id, password].includes('')) {
       Alert.alert('Error', 'Ingrese todos los datos');
       return;
     }
-    console.log(id)
     checkCredentials(id, password) // Use the checkCredentials function
     .then(() => {
+      //getStudent
       getStudent(id) // Use the checkCredentials function
       .then((data) => {
         setStudent({
@@ -27,11 +27,27 @@ export default function LoginScreen() {
           career: data.student[0].career,
           paid: data.student[0].payed,
           fee: data.student[0].tuition_value,
+          photo : data.student[0].profile_picture
+        });
+        console.log("user retrieved " + data.student[0].mail)
+      })
+      .catch((error) => {
+        console.error('Response:', error.response.data);
+      });
+
+      //get date
+      getDates(id) // Use the checkCredentials function
+      .then((data) => {
+        setDates({
+          openingDate: data.openingDate,
+          extraordinaryDate: data.extraordinaryDate,
+          closingDate: data.closingDate
         });
       })
       .catch((error) => {
         console.error('Response:', error.response.data);
       });
+      console.log("login  user")
       setModalVisible(true);
     })
     .catch((error) => {
@@ -57,7 +73,8 @@ export default function LoginScreen() {
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-4`}
           placeholderTextColor="#000"
-          placeholder="Ingresa email"
+          placeholder="Ingresa tu codigo"
+          keyboardType='numeric'
           onChangeText={setId}
         />
 
@@ -83,7 +100,7 @@ export default function LoginScreen() {
         </Pressable>
 
         <Home
-          //dates={dates}
+          dates={dates}
           student={student}
           closeModal={closeModal}
           modal={modal}
