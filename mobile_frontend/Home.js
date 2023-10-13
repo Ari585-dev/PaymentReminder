@@ -1,17 +1,16 @@
 import React from 'react';
-import { Button, Modal, Text, Pressable, View, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { Linking, Button, Modal, Text, Pressable, View, SafeAreaView, StyleSheet, Image } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Home = ({ student, closeModal, modal }) => {
+const Home = ({ dates, student, closeModal, modal }) => {
   return (
     <Modal animationType="slide" visible={modal}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <Image
             source={{
-              uri:
-                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffsb.zobj.net%2Fcrop.php%3Fr%3D-WnRmZYofphVXIyOkV2jfF2SO8DitxezmLUyyNT774rxytsS34ceq0x2sX3gLexXw5VbEWzdr-57gS3WgNdsVWeyQ5RwOy7V4pO612o7O_aZ9fvXH5g5nMSAcZJKvUjrQj50WNVxwNwbqAqy&f=1&nofb=1&ipt=c4e447e9149db09d44c6d2559b6ff68a07d1d07d2f227aa701f2e1d715e74f8e&ipo=images'
+              uri: student.photo
             }}
             style={styles.images}
           />
@@ -23,17 +22,32 @@ const Home = ({ student, closeModal, modal }) => {
         </View>
 
         <View style={{ marginTop: 100 }}></View>
-
         <View style={styles.menuContainer}>
-          <MenuItem icon="settings-outline" text="fechas" />
-          <MenuItem icon="settings-outline" text="Precio a pagar / Pagado" />
-          <ButtonStyle text="Pagar"/>
+          {student.paid ? (
+            <Text style={styles.texts}>Pago realizado</Text>
+          ) :
+            <View style={styles.textContainer}>
+              <Text style={styles.texts}>{"Apertura de pago : " + dates.openingDate}</Text>
+              <Text style={styles.texts}>{"Cierre de fechas de pago : " + dates.openingDate}</Text>
+              <Text style={styles.texts}>{"Pago extraordinario : " + dates.openingDate}</Text>
+            </View>
+          }
+
+          {student.paid ? (
+            <MenuItem icon="settings-outline" text={`Tarifa pagada :  ${student.fee}`} />
+          ) :
+            <MenuItem icon="settings-outline" text={`Tarifa matricula : ${student.fee}`} />
+          }
+          {!student.paid && (
+            <ButtonStyle text="Pagar" onPress={()=> Linking.openURL('https://google.com')}/>
+          )}
         </View>
 
         <View style={{ marginTop: 100 }}></View>
 
         <View style={styles.menuContainer}>
           <ButtonStyle text="Ver Datos" />
+          <View style={{ marginTop: 10 }}></View>
           <ButtonStyle text="Cerrar Sesion" onPress={closeModal} />
         </View>
       </SafeAreaView>
@@ -43,7 +57,6 @@ const Home = ({ student, closeModal, modal }) => {
 
 const MenuItem = ({ icon, text }) => (
   <Pressable style={styles.menuItem}>
-    <Ionicons name={icon} size={24} color="#fff" />
     <Text style={styles.texts}>{text}</Text>
   </Pressable>
 );

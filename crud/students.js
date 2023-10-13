@@ -4,7 +4,6 @@ module.exports={
 
   login: async function(connection, id, password) {  
     const queryAsync = promisify(connection.query).bind(connection);
-    console.log("id",id)
     try {
       const data = await queryAsync(`SELECT id, password FROM students WHERE id='${id}' AND password='${password}'`);
       if (data.length > 0) {
@@ -18,7 +17,6 @@ module.exports={
   },
 
   getStudent: async function(connection, id) {
-    console.log(id)
     const queryAsync = promisify(connection.query).bind(connection);
     try {
       const data = await queryAsync(`SELECT * FROM students WHERE id=${id}`);
