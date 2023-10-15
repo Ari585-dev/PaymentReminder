@@ -38,18 +38,20 @@ const Home = ({ dates, student, closeModal, modal }) => {
           ) :
             <MenuItem icon="settings-outline" text={`Tarifa matricula : ${student.fee}`} />
           }
-          {!student.paid && (
-            <ButtonStyle text="Pagar" onPress={()=> Linking.openURL('https://google.com')}/>
-          )}
+          
         </View>
 
         <View style={{ marginTop: 100 }}></View>
-
+        
         <View style={styles.menuContainer}>
-          <ButtonStyle text="Ver Datos" />
+          {/*<ButtonStyle text="Ver Datos" />*/}
+          {!student.paid && (
+            <ButtonStyle text="Pagar" onPress={()=> Linking.openURL('https://google.com')}/>
+          )}
           <View style={{ marginTop: 10 }}></View>
           <ButtonStyle text="Cerrar Sesion" onPress={closeModal} />
         </View>
+        
       </SafeAreaView>
     </Modal>
   );
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   buttonStyle: {
-    backgroundColor: '#6D28D9',
+    backgroundColor: '#FF0001',
     marginHorizontal: 40,
     padding: 12,
     borderRadius: 8,

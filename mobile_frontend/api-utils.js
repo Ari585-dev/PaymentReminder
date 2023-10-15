@@ -28,7 +28,7 @@ export const getStudent = (id) => {
   });
 };
 
-export const getDates = (id) => {
+export const getDates = () => {
   
   return axios.get('http://192.168.20.21:3000/api/getDates', {
 

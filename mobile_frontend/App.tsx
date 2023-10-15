@@ -1,58 +1,71 @@
-import {View,Text,TextInput,Pressable,Image, Modal,Alert,} from 'react-native';
-import React, {useState} from 'react';
+import React, { useState, useRef } from 'react';
+import { View, Text, TextInput, Pressable, Image, Modal, Alert } from 'react-native';
 import tailwind from 'twrnc';
 import Home from './Home';
-import { checkCredentials, getStudent, getDates } from './api-utils'
+import { checkCredentials, getStudent, getDates } from './api-utils';
 
 export default function LoginScreen() {
+  const idRef = useRef("null");
+  const passwordRef = useRef("null");
+
   const [modal, setModalVisible] = useState(false);
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [student, setStudent] = useState({});
-  const [dates, setDates] = useState({})
+  const [dates, setDates] = useState({});
+
+  const clearInput = () => {
+    idRef.current.clear();
+    idRef.current.focus()
+    passwordRef.current.clear();
+  }
 
   const login = () => {
     if ([id, password].includes('')) {
       Alert.alert('Error', 'Ingrese todos los datos');
       return;
     }
-    checkCredentials(id, password) // Use the checkCredentials function
-    .then(() => {
-      //getStudent
-      getStudent(id) // Use the checkCredentials function
-      .then((data) => {
-        setStudent({
-          id: id,
-          name: data.student[0].first_name + " " + data.student[0].last_name,
-          career: data.student[0].career,
-          paid: data.student[0].payed,
-          fee: data.student[0].tuition_value,
-          photo : data.student[0].profile_picture
-        });
-        console.log("user retrieved " + data.student[0].mail)
-      })
-      .catch((error) => {
-        console.error('Response:', error.response.data);
-      });
+    checkCredentials(id, password)
+      .then(() => {
+        getStudent(id)
+          .then((data) => {
+            setStudent({
+              id: id,
+              name: data.student[0].first_name + " " + data.student[0].middle_name + " " + data.student[0].last_name,
+              career: data.student[0].career,
+              paid: data.student[0].payed,
+              fee: data.student[0].tuition_value,
+              photo: data.student[0].profile_picture,
+            });
+            console.log("user retrieved " + data.student[0].mail);
+          })
+          .catch((error) => {
+            console.error('Response:', error.response.data);
+          });
 
-      //get date
-      getDates(id) // Use the checkCredentials function
-      .then((data) => {
-        setDates({
-          openingDate: data.openingDate,
-          extraordinaryDate: data.extraordinaryDate,
-          closingDate: data.closingDate
-        });
+        getDates()
+          .then((data) => {
+            setDates({
+              openingDate: data.openingDate,
+              extraordinaryDate: data.extraordinaryDate,
+              closingDate: data.closingDate,
+            });
+          })
+          .catch((error) => {
+            console.error('Response:', error.response.data);
+          });
+
+        // Clear input fields using refs
+        clearInput()
+        setId("")
+        setPassword("")
+        console.log("login user");
+        setModalVisible(true);
       })
       .catch((error) => {
-        console.error('Response:', error.response.data);
+        console.error('Response:', error.response.data.message);
+        clearInput()
       });
-      console.log("login  user")
-      setModalVisible(true);
-    })
-    .catch((error) => {
-      console.error('Response:', error.response.data.message);
-    });    
   };
 
   const closeModal = () => {
@@ -63,7 +76,7 @@ export default function LoginScreen() {
     <View style={tailwind`flex-1 items-center justify-center bg-slate-50`}>
       <View style={tailwind`p-8 w-full max-w-sm`}>
         <Image
-          style={{paddingLeft: 320, width: 340, height: 340}}
+          style={{ paddingLeft: 320, width: 340, height: 340 }}
           source={require('./img/udistritallogo.png')}
         />
         <Text style={tailwind`text-3xl font-bold mb-6 text-slate-900`}>
@@ -76,6 +89,7 @@ export default function LoginScreen() {
           placeholder="Ingresa tu codigo"
           keyboardType='numeric'
           onChangeText={setId}
+          ref={idRef}
         />
 
         <TextInput
@@ -83,6 +97,7 @@ export default function LoginScreen() {
           placeholderTextColor="#000"
           placeholder="Ingresa contraseña"
           onChangeText={setPassword}
+          ref={passwordRef}
         />
 
         <View style={tailwind`flex flex-row justify-between items-center my-4`}>
@@ -91,7 +106,8 @@ export default function LoginScreen() {
 
         <Pressable
           style={tailwind`h-13 bg-blue-500 rounded-md flex flex-row justify-center items-center px-6`}
-          onPress={() => login()}>
+          onPress={() => login()}
+        >
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-medium`}>
               Login
@@ -109,34 +125,3 @@ export default function LoginScreen() {
     </View>
   );
 }
-/*
-
-    fetch('http://localhost:3000/api/login', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ mail: email, password: password }),
-})
-  .then((response) => {
-    if (response.status === 200) {
-      return response.json();
-    } else {
-      // Handle response errors here
-      throw new Error('Login failed');
-    }
-  })
-  .then((data) => {
-    // If the login was successful, update the student state
-    setStudent(data);
-
-    // Show the modal
-    setModalVisible(true);
-  })
-  .catch((error) => {
-    console.error('Network error:', error);
-
-    // Handle the error or display a meaningful message to the user
-    console.log('Network error');
-  });
-  */ 
