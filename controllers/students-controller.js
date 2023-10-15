@@ -71,6 +71,7 @@ let controller = {
   },
 
   studentPaid: async function (req, res) {
+    //FALTA AQUÍ
     let params = req.body;
     if (!params.id) {
       return res.status(400).send(" id are required.");
