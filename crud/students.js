@@ -50,6 +50,16 @@ module.exports={
     } catch (err) {
       throw err;
     }
+  },
+
+  getAllStudentsWithPayment: async function(connection, id) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync("SELECT * FROM students WHERE payed = true");
+      return data;
+    } catch (err) {
+      throw err;
+    }
   }
 
 }

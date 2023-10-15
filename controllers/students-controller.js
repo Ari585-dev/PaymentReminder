@@ -72,26 +72,16 @@ let controller = {
 
   studentPaid: async function (req, res) {
     let params = req.body;
-    if (!params.id || !params.name || !params.mail) {
-      return res.status(400).send("'id', 'name' and 'mail' are required.");
+    if (!params.id) {
+      return res.status(400).send(" id are required.");
+    }else{
+      try {
+        
+      } catch (error) {
+        console.log(error);
+      }
     }
-    try {
-      const student = { id: params.id, name: params.name, mail: params.mail }
-      let date = new Date();
-      moment.locale("es");
-      const parsedDate = moment(date, "YYYY-MM-DD");
-      date = parsedDate.format("MMMM Do YYYY, h:mm:ss a");
-      const html = await MessageController.getHtmlPaid(student, date);
-      //const mssg = body + " " + closingDate;
-      await MailController.sendMail('req', 'res', student.mail, html, "PaymentDone");
-      //wp part pending
-      //await WhatsappController.sendWh('req', 'res', student.phone, mssg);
-
-      return res.status(200).json({ message: "Student payment received succesfully" });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).send("Server error");
-    }
+   
   }
 }
 

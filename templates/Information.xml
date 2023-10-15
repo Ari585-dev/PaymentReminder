@@ -1,18 +1,18 @@
 <Messages>
     <notifyAll>
-        <title>UNIERSIDAD DISTRITAL: ¡PAGO DE MATRÍCULA ABIERTO!</title>
-        <body>Estimado name, la Universidad Distrital Francisco José de Caldas le recuerda que el pago de la matrícula está actualmente abierto, y que la fecha límite ordinaria de pago  es en date</body>
+        <title>UNIVERSIDAD DISTRITAL: ¡PAGO DE MATRÍCULA ABIERTO!</title>
+        <body>Estimado name, la Universidad Distrital Francisco José de Caldas te recuerda que el pago de la matrícula está actualmente abierto, y que la fecha límite ordinaria de pago es en date</body>
     </notifyAll>
-    <example>
-        <title></title>
-        <body></body>
-    </example>
+    <paid>
+        <title>UNIVERSIDAD DISTRITAL: PAGO REALIZADO</title>
+        <body>Queremos informarte que tu pago  hecho en la fecha de payment fue procesado satisfactoriamente y tu matrícula se encuentra en estado pago en la base de datos.</body>
+    </paid>
     <remindStudents>
-        <title>UNIERSIDAD DISTRITAL: USTED NO HA PAGADO</title>
-        <body>name, desde la Universidad Distrital Francisco José de Caldas le informamos que usted aún no ha realizado el pago de la matrícula, recuerde que este tiene como fecha límite</body>
+        <title>UNIVERSIDAD DISTRITAL: NO HAS PAGADO</title>
+        <body>Estimado name, desde la Universidad Distrital Francisco José de Caldas te informamos no has realizado el pago de la matrícula, recuerda que este tiene como fecha límite</body>
     </remindStudents>
     <remindExtraordinary>
-    <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, USTED NO HA PAGADO</title>
-    <body>Cordial saludo name, la Universidad Distrital Francisco José de Caldas le informa que usted no ha realizado el pago de la matrícula y se encuentra en fecha de pago extraordinaria, esta tiene como día límite</body>
+    <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, NO HAS PAGADO</title>
+    <body>Cordial saludo name, la Universidad Distrital Francisco José de Caldas te informa que no has realizado el pago de la matrícula y te encuentras en fecha de pago extraordinaria, esta tiene como día límite</body>
     </remindExtraordinary>
 </Messages>
