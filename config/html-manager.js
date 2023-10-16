@@ -12,8 +12,7 @@ let htmlManager = {
   getHtmlOpenPayment: async function(student, ordinary, extraordinary) {
     try {
       const html = await readFileAsync(htmlOpenURL, 'utf8');
-      const students= [student.first_name, student.middle_name, student.last_name];
-      const fullName = students.join(' ');
+      const fullName= student.first_name +" "+ student.middle_name +" "+ student.last_name;
       
       let htmlReplaced = html.replace("Nombre", fullName);
       htmlReplaced= htmlReplaced.replace("fecha1", ordinary);
@@ -31,8 +30,7 @@ let htmlManager = {
   getHtmlReminder: async function (student, ordinary, extraordinary) {
     try {
       const html = await readFileAsync(htmlRemindURL, 'utf-8');
-      const students= [student.first_name, student.middle_name, student.last_name];
-      const fullName = students.join(' ');
+      const fullName= student.first_name +" "+ student.middle_name +" "+ student.last_name;
 
       let htmlReplaced = html.replace("Nombre", fullName);
       htmlReplaced= htmlReplaced.replace("fecha1", ordinary);
@@ -48,8 +46,7 @@ let htmlManager = {
   getHtmlExtraordinaryReminder: async function (student, extraordinary) {
     try {
       const html = await readFileAsync(htmlExtraordinaryRemindURL, 'utf-8');
-      const students= [student.first_name, student.middle_name, student.last_name];
-      const fullName = students.join(' ');
+      const fullName= student.first_name +" "+ student.middle_name +" "+ student.last_name;
 
       let htmlReplaced = html.replace("Nombre", fullName);
       htmlReplaced= htmlReplaced.replace("fecha2", extraordinary);
@@ -61,10 +58,15 @@ let htmlManager = {
   },
 
   getHtmlPaid: async function(student, date) {
+    
     try {
       const html = await readFileAsync(htmlPaid, 'utf8');
-      let htmlReplaced = html.replace("Nombre", student.name);
-      htmlReplaced = htmlReplaced.replace("Fecha", date);
+      const fullName= student.first_name +" "+ student.middle_name +" "+ student.last_name;
+      let htmlReplaced = html.replace("student", fullName);
+      htmlReplaced = htmlReplaced.replace("code", student.id);
+      htmlReplaced = htmlReplaced.replace("identfication", student.identification);
+      htmlReplaced = htmlReplaced.replace("career", student.career);
+      htmlReplaced = htmlReplaced.replace("fecha", date);
       return htmlReplaced;
     } catch (error) {
       console.error(error);
