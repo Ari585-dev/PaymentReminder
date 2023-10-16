@@ -70,17 +70,13 @@ let controller = {
     }
   },
 
-  studentPaid: async function (req, res) {
-    //FALTA AQUÍ
-    let params = req.body;
-    if (!params.id) {
-      return res.status(400).send(" id are required.");
-    }else{
-      try {
-        
-      } catch (error) {
-        console.log(error);
-      }
+  studentPaid: async function (id) {
+    try {
+      const data = await students.getStudent(connection, id);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return [];
     }
    
   }

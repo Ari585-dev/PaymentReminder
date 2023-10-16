@@ -89,9 +89,10 @@ let controller = {
     },
   //payment succesfully recieved
   notifyPaid: async function (req, res) {
+    id = req.body.id
     try{
       tag = 'paid'; // Define tag here
-      const students = await StudentsController.studentPaid();
+      const students = await StudentsController.studentPaid(id);
       moment.locale("es");
       let currentDate = moment();
       currentDate= currentDate.format("MMMM Do YYYY");
