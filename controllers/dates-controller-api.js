@@ -2,21 +2,18 @@ let connection = require('../config/connection');
 const students = require('../crud/students');
 const Date = require('../crud/dates');
 const moment = require('moment');
-//const WhatsappController = require('./WhatsappController');
 const MailController = require('./mail-controller');
 const MessageController = require('../config/html-manager');
 
 require('dotenv').config();
-
-
+//this is used for the react native app
 let controller = {
-
+  //get all 3 dates from the db opening, closing, extraordinary
   getDates: async function (req, res) {
     try {
-      //get every date from the db
       const openingDate = await Date.getOpeningDate(connection);
-      const extraordinaryDate = await Date.getExtraordinaryDate(connection);
       const closingDate = await Date.getClosingDate(connection);
+      const extraordinaryDate = await Date.getExtraordinaryDate(connection);
       //show input
       console.log(openingDate, extraordinaryDate, closingDate);
       //return data 
