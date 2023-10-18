@@ -41,9 +41,9 @@ let xmlManager = {
                         obj.body[0] = body;
                         resolve([title, body]);
 
-                    }else if(tag=="paid"){
+                    } else if (tag == "paid") {
                         const body = obj.body[0].replace(/payment/g, currentDate);
-                        
+
                         const title = obj.title[0];
                         obj.body[0] = body;
                         resolve([title, body]);

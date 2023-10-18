@@ -12,12 +12,14 @@ require('dotenv').config();
 let controller = {
 
   getDates: async function (req, res) {
-    console.log("miau")
     try {
+      //get every date from the db
       const openingDate = await Date.getOpeningDate(connection);
       const extraordinaryDate = await Date.getExtraordinaryDate(connection);
       const closingDate = await Date.getClosingDate(connection);
+      //show input
       console.log(openingDate, extraordinaryDate, closingDate);
+      //return data 
       return res.status(200).json({ openingDate: openingDate, 
         extraordinaryDate : extraordinaryDate,
         closingDate : closingDate

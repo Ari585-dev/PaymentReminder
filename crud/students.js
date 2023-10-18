@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 
 module.exports={
-
+  //login used in react-native mobile app, check if user has (id,password) = return true
   login: async function(connection, id, password) {  
     const queryAsync = promisify(connection.query).bind(connection);
     try {
@@ -16,6 +16,7 @@ module.exports={
     }
   },
 
+  //get all data from one specific student by his id
   getStudent: async function(connection, id) {
     console.log("id " , id)
     const queryAsync = promisify(connection.query).bind(connection);
@@ -31,6 +32,7 @@ module.exports={
     }
   },
     
+  //get all students from the db
   getAllStudents: function(connection) {
     return new Promise(function(resolve, reject) {
       connection.query("SELECT * FROM students", function(err, data) {
@@ -42,7 +44,9 @@ module.exports={
       });
     });
   },
-    
+
+  //used in ()  
+  //get every student whose havent paid the fee
   getAllStudentsWithoutPayment: async function(connection) {
     const queryAsync = promisify(connection.query).bind(connection);
     try {
@@ -53,6 +57,7 @@ module.exports={
     }
   },
 
+  //get all student who have paid
   getAllStudentsWithPayment: async function(connection, id) {
     //falta aquí
     const queryAsync = promisify(connection.query).bind(connection);

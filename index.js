@@ -2,6 +2,7 @@ const app = require('./app');
 const mysql = require('mysql');
 const port = 3000;
 
+//start app and check conexion to the db
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -20,9 +21,3 @@ try {
 } finally {
     connection.end();
 }
-
-//check date 15 20
-//stablish reminder time [15,17,20]
-//iterate 
-//  notifyStudents(getHaventPaid)
-//-----

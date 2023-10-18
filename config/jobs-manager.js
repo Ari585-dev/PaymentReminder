@@ -6,41 +6,12 @@ const connection = require('./connection');
 
 let jobsManager = {
 
-  scheduleNoPayment: function (today, ordinaryDates, extraordinaryDates) { 
-        
-        
-
-       /*  if(today <= dates[size-1]){
-
-          notifyController.remindStudents();
-
-        } else if(today > dates[size-1] && tod) */
-        
-       
-        //else -> call extraordinaryMessage
-        if(today.isSameOrBefore(ordinaryDates[ordinaryDates.length - 1])){
-
-          notifyController.remindStudents();
-
-        }else {
-
-          console.log("error en el reminder")
-        }
-
-        console.log('Successful : Remind those who havent paid.');
-      
-      
-   
-  },
-
   scheduleCheckDates: function () {
-    cron.schedule('*/1 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => { //this job will check after specified time
       try {
         date.getRemindDays(connection)
-        .then(([ordinaryDates, extraDays]) => {
-
+        .then(([ordinaryDates, extraDays]) => { //
           if(ordinaryDates && ordinaryDates.length>0){
-            
             moment.locale("es");
             //let currentDate = moment()
             const currentDate = moment('2023-06-15');
@@ -48,11 +19,13 @@ let jobsManager = {
             const ordinaryDatesMoment = [];
             const extraordinaryDatesMoment = [];
 
+            //store ordinary dates as moment objects
             for (const datesOrd of ordinaryDates) {
               const formatedDate = moment(datesOrd, "MMMM Do YYYY");
               ordinaryDatesMoment.push(formatedDate);
             }
 
+            //store extradays (after ordinary towards extraordinary) as moment object
             for (const datesOrd of extraDays) {
               const formatedDate = moment(datesOrd, "MMMM Do YYYY");
               extraordinaryDatesMoment.push(formatedDate);
@@ -84,17 +57,13 @@ let jobsManager = {
             } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
               notifyController.remindExtraordinary();
             } 
-            
           }else{
             console.log('No Dates Found');
           }
-
-          
         })
         .catch((error) => {
           console.error(error);
         });
-     
       } catch (err) {
         console.error('Error : Notify students of date payment open ; ', err);
       }
