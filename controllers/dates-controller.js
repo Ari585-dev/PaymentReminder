@@ -32,7 +32,8 @@ let controller = {
       return [];
     }
 
-  },
+  }
+
 }
 
 module.exports = controller;

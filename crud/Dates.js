@@ -93,5 +93,24 @@ module.exports = {
     } catch (err) {
       throw err;
     }
-  }
+  },
+
+  updateallDates: async function(connection, newOpening, newClosing, newExtraordinary){
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE information 
+      SET 
+      payment_opening_date = '${newOpening}', 
+      closing_payment_date = '${newClosing}',
+      extraordinary_date = '${newExtraordinary}';`);
+
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+
+
+
 }

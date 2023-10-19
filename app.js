@@ -14,7 +14,7 @@ app.use('/api', project_routes)
 
 //jobs to check dates
 //jobs.scheduleNoPayment();
-//jobs.scheduleCheckDates();  
+jobs.scheduleCheckDates();  
 //jobs.scheduleNotifyAll();
 
 /*

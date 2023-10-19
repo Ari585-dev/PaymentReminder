@@ -24,4 +24,6 @@ route.get('/students', studentsController.allStudents);
 route.get('/getDates', datesController.getDates);
 route.post('/getStudent', studentsController.getStudent);
 
+route.put('/updateDates', datesController.modifyallDates);
+
 module.exports= route;
