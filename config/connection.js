@@ -1,11 +1,18 @@
 //mysql connection file
 var mysql= require("mysql");
+require('dotenv').config();
+
+const USER = process.env.USERDB;
+const PASSWORD = process.env.PASSWORD;
+const DBNAME = process.env.DBNAME
+const HOST = process.env.HOST
+
 var conexion= mysql.createConnection(
     {
-        host:'localhost',
-        user:'root',
-        password:'',
-        database:'universidad'
+        host: HOST,
+        user: USER,
+        password: PASSWORD,
+        database: DBNAME
     }
 );
 

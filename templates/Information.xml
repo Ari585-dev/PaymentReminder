@@ -1,7 +1,7 @@
 <Messages>
     <notifyAll>
         <title>UNIVERSIDAD DISTRITAL: ¡PAGO DE MATRÍCULA ABIERTO!</title>
-        <body>Estimado name, la Universidad Distrital Francisco José de Caldas te recuerda que el pago de la matrícula está actualmente abierto, y que la fecha límite ordinaria de pago es en date</body>
+        <body>Estimado name, la Universidad Distrital Francisco José de Caldas te recuerda que el pago de la matrícula está actualmente abierto, y que la fecha límite ordinaria de pago es en </body>
     </notifyAll>
     <paid>
         <title>UNIVERSIDAD DISTRITAL: PAGO REALIZADO</title>

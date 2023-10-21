@@ -1,13 +1,19 @@
 const app = require('./app');
 const mysql = require('mysql');
 const port = 3000;
+require('dotenv').config();
+
+const USER = process.env.USERDB;
+const PASSWORD = process.env.PASSWORD;
+const DBNAME = process.env.DBNAME
+const HOST = process.env.HOST
 
 //start app and check conexion to the db
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'universidad'
+    host: HOST,
+    user: USER,
+    password: PASSWORD,
+    database: DBNAME
 });
 
 try {

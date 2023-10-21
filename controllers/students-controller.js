@@ -38,7 +38,6 @@ let controller = {
     }
     try {
       const isLoginValid = await students.login(connection, params.id, params.password);
-      console.log(params.id, params.password)
       if (isLoginValid) {
         return res.status(200).json({ message: "You have been logged successfully" });
       } else {
@@ -52,13 +51,13 @@ let controller = {
 
   getStudent: async function (req, res) {
     let params = req.body;
-    console.log(params)
+    //console.log(params)
     if (!params.id) {
       return res.status(400).send("id is required");
     }
     try {
       const data = await students.getStudent(connection, params.id);
-      console.log(data)
+      //console.log(data)
       return res.status(200).json({ student: data });
     } catch (err) {
       // Handle the error

@@ -14,16 +14,7 @@ app.use('/api', project_routes)
 
 //jobs to check dates
 //jobs.scheduleNoPayment();
-jobs.scheduleCheckDates();  
+//jobs.scheduleCheckDates();  
 //jobs.scheduleNotifyAll();
 
-/*
-date.getRemindDays(connection)
-  .then((dates) => {
-    console.log(dates);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-*/
 module.exports = app;

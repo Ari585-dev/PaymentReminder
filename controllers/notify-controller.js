@@ -8,6 +8,10 @@ const moment = require('moment');
 const xmlController = require('../config/xml-manager')
 let connection = require('../config/connection');
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 let controller = {
   //notify students that the payment is open
   notifyAllPayment: async function (req, res) {
@@ -22,6 +26,7 @@ let controller = {
       //tag to identify in xml-manager which title(subject-mail), body(whattsapp message)
       tag = 'notifyAll';
       //for every student modify html-whatsapp message, and send them
+      console.log("------------notify all students------------")
       for (const student of students) {
         try {
           //get personalized data based on student info and subject for the email
@@ -30,12 +35,15 @@ let controller = {
           //get html personalized html body message
           const html = await HtmlManager.getHtmlOpenPayment(student, datesOrd, datesExt);
           const mssg = body + " " + openingPayment;
+          console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
         }
       }
+      console.log("---------------END---------------")
     } catch (err) {
       console.error(err);
     }

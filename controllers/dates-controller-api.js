@@ -1,9 +1,5 @@
 let connection = require('../config/connection');
-const students = require('../crud/students');
 const Date = require('../crud/dates');
-const moment = require('moment');
-const MailController = require('./mail-controller');
-const MessageController = require('../config/html-manager');
 
 require('dotenv').config();
 //this is used for the react native app
