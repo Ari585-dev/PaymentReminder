@@ -8,6 +8,7 @@ const PASSWORD = process.env.PASSWORD;
 const DBNAME = process.env.DBNAME
 const HOST = process.env.HOST
 
+//start app and check conexion to the db
 const connection = mysql.createConnection({
     host: HOST,
     user: USER,
@@ -26,9 +27,3 @@ try {
 } finally {
     connection.end();
 }
-
-//check date 15 20
-//stablish reminder time [15,17,20]
-//iterate 
-//  notifyStudents(getHaventPaid)
-//-----

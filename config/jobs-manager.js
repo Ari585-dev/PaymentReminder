@@ -5,55 +5,62 @@ const moment = require('moment');
 const connection = require('./connection');
 
 let jobsManager = {
-
+  //manage the scheduling of the reminding dates of every case
   scheduleCheckDates: function () {
-    cron.schedule('*/2 * * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => { //this job will check after specified time
       try {
         date.getRemindDays(connection)
-          .then(([ordinaryDates, extraDays]) => {
+        .then(([ordinaryDates, extraDays]) => { // the ordinary and extra days to convert them into moment objets again
+          if(ordinaryDates && ordinaryDates.length>0){
+            //now()
+            moment.locale("es");
+            const currentDate = moment('2023-06-15');//let currentDate = moment()
 
-            if (ordinaryDates && ordinaryDates.length > 0) {
-              moment.locale("es");
-              const currentDate = moment('2023-06-17 11:59:59');
-              const ordinaryDatesMoment = [];
-              const extraordinaryDatesMoment = [];
+            const ordinaryDatesMoment = [];
+            const extraordinaryDatesMoment = [];
+            const ordinaryDatesMiliseconds = [];
 
-              for (const datesOrd of ordinaryDates) {
-                const formatedDate = moment(datesOrd, "MMMM Do YYYY");
-                ordinaryDatesMoment.push(formatedDate);
-              }
-
-              for (const datesOrd of extraDays) {
-                const formatedDate = moment(datesOrd, "MMMM Do YYYY");
-                extraordinaryDatesMoment.push(formatedDate);
-              }
-
-              let daysBetween1 = [];
-
-              for (let i = 0; i < ordinaryDatesMoment.length; i++) {
-                daysBetween1[i] = (ordinaryDatesMoment[i].diff(currentDate, 'days')) * 8.64e+7;
-              }
-              if (currentDate.isSameOrBefore(ordinaryDatesMoment[0])) {
-                setTimeout(() => {
-                  notifyController.notifyAllPayment();
-                }, 0/*daysBetween1[0]*/);
-                setTimeout(() => {
-                  notifyController.remindStudents();
-                }, 30000 /*daysBetween1[1]*/);
-                setTimeout(() => {
-                  notifyController.remindStudents();
-                }, 60000 /*daysBetween1[2]*/);
-                console.log("ms: " + daysBetween1[0] + ", " + daysBetween1[1] + ", " + daysBetween1[2])
-              } else if (currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length - 1])) {
-                notifyController.remindExtraordinary();
-              }
-            } else {
-              console.log('No Dates Found');
+            //store ordinary dates as moment objects
+            for (const datesOrd of ordinaryDates) {
+              const formatedDate = moment(datesOrd, "MMMM Do YYYY");
+              ordinaryDatesMoment.push(formatedDate);
             }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+
+            //store extradays (after ordinary towards extraordinary) as moment object
+            for (const datesOrd of extraDays) {
+              const formatedDate = moment(datesOrd, "MMMM Do YYYY");
+              extraordinaryDatesMoment.push(formatedDate);
+            }
+
+            //ordinary dates to ms, to be used in the timeouts
+            for (let i = 0; i < ordinaryDatesMoment.length; i++) {
+              ordinaryDatesMiliseconds[i] = (ordinaryDatesMoment[i].diff(currentDate, 'days')) * 8.64e+7;
+            }
+
+            //schedule when the functions will be excecuted
+            if(currentDate.isSameOrBefore(ordinaryDatesMoment[0])){
+               setTimeout(() => {
+                notifyController.notifyAllPayment(); //notify everyone about payment open
+              }, ordinaryDatesMiliseconds[0]);
+               setTimeout(() => {
+                notifyController.remindStudents(); //first reminder about payment
+              },  ordinaryDatesMiliseconds[1]);
+              setTimeout(() => {
+                notifyController.remindStudents(); //second reminder about payment
+              },  ordinaryDatesMiliseconds[2]);
+              //print in ms the schedule time for first day of payment and reminders (ordinary)
+              console.log("open payment: "+ ordinaryDatesMiliseconds[0]+"ms, remind 1"+ ordinaryDatesMiliseconds[1]+"m, remind2"+ ordinaryDatesMiliseconds[2]+"ms")
+            } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
+              //notify extraordinary
+              notifyController.remindExtraordinary();
+            } 
+          }else{
+            console.log('No Dates Found');
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
       } catch (err) {
         console.error('Error : Notify students of date payment open ; ', err);
       }

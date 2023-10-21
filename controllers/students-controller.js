@@ -14,10 +14,8 @@ let controller = {
   allStudents: async function (req, res) {
     try {
       const data = await students.getAllStudents(connection);
-      // console.log(data);
       return data;
     } catch (err) {
-      // Handle the error
       console.error(err);
       return [];
     }
@@ -34,7 +32,6 @@ let controller = {
   },
 
   studentsLogin: async function (req, res) {
-    //console.log("reached login")
     let params = req.body;
     if (!params.id || !params.password) {
       return res.status(400).send("'id' and 'password' are required.");
