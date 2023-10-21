@@ -1,10 +1,5 @@
 let connection = require('../config/connection');
-const students = require('../crud/students');
 const Date = require('../crud/dates');
-const moment = require('moment');
-//const WhatsappController = require('./WhatsappController');
-const MailController = require('./mail-controller');
-const MessageController = require('../config/html-manager');
 
 require('dotenv').config();
 
@@ -12,7 +7,6 @@ require('dotenv').config();
 let controller = {
 
   getDates: async function (req, res) {
-    console.log("miau")
     try {
       const openingDate = await Date.getOpeningDate(connection);
       const extraordinaryDate = await Date.getExtraordinaryDate(connection);

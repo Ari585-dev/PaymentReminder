@@ -3,7 +3,6 @@ const mg = require('mailgun-js')
 
 let controller = {
   sendMail: function (req, res, correo, html, subject) {
-    console.log(correo);
     const mailgun = () =>
       mg({
         apiKey: process.env.MAILGUN_API_KEY,

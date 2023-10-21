@@ -22,9 +22,9 @@ let controller = {
         for (const student of students) {
           try {
             const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-            const openingPayment = await Date.getOpeningDate(connection);
+            const closingDate = await Date.getClosingDate(connection);
             const html = await HtmlManager.getHtmlOpenPayment(student, datesOrd, datesExt);
-            const mssg = body + " " + openingPayment;
+            const mssg = body + " " + closingDate;
             await MailController.sendMail('req', 'res', student.mail, html, title);
             await WhatsappController.sendWh('req', 'res', student.phone, mssg);
           } catch (error) {

@@ -17,7 +17,6 @@ module.exports={
   },
 
   getStudent: async function(connection, id) {
-    console.log("id " , id)
     const queryAsync = promisify(connection.query).bind(connection);
     try {
       const data = await queryAsync(`SELECT * FROM students WHERE id=${id}`);
