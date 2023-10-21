@@ -41,7 +41,7 @@ let jobsManager = {
             if(currentDate.isSameOrBefore(ordinaryDatesMoment[0])){
                setTimeout(() => {
                 notifyController.notifyAllPayment(); //notify everyone about payment open
-              }, ordinaryDatesMiliseconds[0]);
+              }, 0/*ordinaryDatesMiliseconds[0]*/);
                setTimeout(() => {
                 notifyController.remindStudents(); //first reminder about payment
               },  ordinaryDatesMiliseconds[1]);

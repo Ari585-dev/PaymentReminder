@@ -12,19 +12,6 @@ app.use(bodyParser.json())
 
 app.use('/api', project_routes)
 
-//jobs.scheduleCheckDates();  
-//jobs.scheduleNotifyAll();
+jobs.scheduleCheckDates();
 
-// apertura -> 1
-// notify all (1mes)
-// 
-/*
-date.getRemindDays(connection)
-  .then((dates) => {
-    console.log(dates);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-*/
 module.exports = app;

@@ -4,7 +4,6 @@ const mg = require('mailgun-js')
 let controller = {
   //.env must store mailgun api_key and domain, and name-email "sender" 
   sendMail: function (req, res, correo, html, subject) {
-    console.log(correo);
     const mailgun = () =>
       mg({
         apiKey: process.env.MAILGUN_API_KEY,
@@ -23,6 +22,8 @@ let controller = {
         console.log(error);
         res.json
         res.sendStatus(500);
+      }else{
+        console.log("email sent to : ",correo);
       }
     });
   }
