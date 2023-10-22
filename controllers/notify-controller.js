@@ -15,6 +15,7 @@ function sleep(ms) {
 let controller = {
   //notify students that the payment is open
   notifyAllPayment: async function (req, res) {
+    console.log("------------notify all students------------")
     try {
       //get all students info, open-closing dates
       const students = await StudentsController.allStudents();
@@ -26,7 +27,6 @@ let controller = {
       //tag to identify in xml-manager which title(subject-mail), body(whattsapp message)
       tag = 'notifyAll';
       //for every student modify html-whatsapp message, and send them
-      console.log("------------notify all students------------")
       for (const student of students) {
         try {
           //get personalized data based on student info and subject for the email
@@ -51,6 +51,7 @@ let controller = {
 
   //remind students during ordinary dates
   remindStudents: async function (req, res) {
+    console.log("------------notify students without payment------------")
     try {
       tag = 'remindStudents';
       const students = await StudentsController.studentsWithoutPayment();
@@ -64,12 +65,14 @@ let controller = {
           const closingDate = await Date.getClosingDate(connection);
           const html = await HtmlManager.getHtmlReminder(student, datesOrd, datesExt);
           const mssg = body + " " + closingDate;
+          console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
         } catch (error) {
           console.error('An error occurred:', error);
         }
       }
+      console.log("---------------END---------------")
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
@@ -78,24 +81,27 @@ let controller = {
 
   //remind students after closing date towards ordinary date
   remindExtraordinary: async function (req, res) {
+    console.log("------------extraordinary date reminder------------")
     try {
       tag = 'remindExtraordinary'; // Define tag here
       const students = await StudentsController.studentsWithoutPayment();
-      const datesExt = await DatesController.extraordinaryDate();
+      const extraordinaryDate = await DatesController.extraordinaryDate();
       let currentDate = moment(); //no format?
       moment.locale("es");
       for (const student of students) {
         try {
           const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const extraordinaryDate = await Date.getExtraordinaryDate(connection);
+          //const extraordinaryDate = await Date.getExtraordinaryDate(connection);
           const html = await HtmlManager.getHtmlExtraordinaryReminder(student, extraordinaryDate);
           const mssg = body + " " + extraordinaryDate;
+          console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
         } catch (error) {
           console.error('An error occurred:', error);
         }
       }
+      console.log("---------------END---------------")
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
@@ -105,6 +111,7 @@ let controller = {
   
   //payment succesfully recieved
   notifyPaid: async function (req, res) {
+    console.log("------------student payment received------------")
     id = req.body.id
     try {
       tag = 'paid'; // Define tag here
@@ -117,12 +124,14 @@ let controller = {
           const [title, body] = await xmlController.getInfo(tag, student, currentDate);
           const html = await HtmlManager.getHtmlPaid(student, currentDate);
           const mssg = body;
+          console.log("student : ", student.first_name)
           MailController.sendMail('req', 'res', student.mail, html, title);
           WhatsappController.sendWh('req', 'res', student.phone, mssg);
         } catch (error) {
           console.error('An error occurred:', error);
         }
       }
+      console.log("---------------END---------------")
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
