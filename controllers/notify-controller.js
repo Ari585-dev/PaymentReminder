@@ -68,6 +68,7 @@ let controller = {
           console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
         }
@@ -97,6 +98,7 @@ let controller = {
           console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
         }
@@ -127,6 +129,7 @@ let controller = {
           console.log("student : ", student.first_name)
           MailController.sendMail('req', 'res', student.mail, html, title);
           WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
         }
