@@ -31,7 +31,7 @@ let controller = {
         try {
           //get personalized data based on student info and subject for the email
           const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const closingDate = await Date.getClosingDate(connection); //opening date
+          const closingDate = await Date.getClosingDate(connection); //closing date
           //get html personalized html body message
           const html = await HtmlManager.getHtmlOpenPayment(student, datesOrd, datesExt);
           const mssg = body + " " + closingDate;
@@ -118,7 +118,7 @@ let controller = {
     try {
       tag = 'paid'; // Define tag here
       payed= 1;
-      const students = await StudentsController.studentPaid(id, payed);
+      const students = await StudentsController.studentPaid(id);
       moment.locale("es");
       let currentDate = moment();
       currentDate = currentDate.format("MMMM Do YYYY"); //now() to string

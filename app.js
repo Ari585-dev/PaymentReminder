@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use('/api', project_routes)
 
 //jobs to check dates
-jobs.scheduleCheckDates();  
+//jobs.scheduleCheckDates();  
 
 
 module.exports = app;

@@ -66,10 +66,9 @@ let controller = {
     }
   },
 
-  studentPaid: async function (id, payed) {
+  studentPaid: async function (id) {
     try {
       const data = await students.getStudent(connection, id);
-      await students.updateStudent(connection, payed, id);
       return data;
     } catch (err) {
       console.log(err);
