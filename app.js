@@ -13,8 +13,7 @@ app.use(bodyParser.json())
 app.use('/api', project_routes)
 
 //jobs to check dates
-//jobs.scheduleNoPayment();
-//jobs.scheduleCheckDates();  
-//jobs.scheduleNotifyAll();
+jobs.scheduleCheckDates();  
+
 
 module.exports = app;
