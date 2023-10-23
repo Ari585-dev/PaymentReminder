@@ -30,6 +30,20 @@ module.exports={
       throw err;
     }
   },
+
+  updateStudent: async function(connection, payed, id){
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE students 
+      SET 
+      payed = ${payed}
+        WHERE id=${id};`);
+
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
     
   //get all students from the db
   getAllStudents: function(connection) {

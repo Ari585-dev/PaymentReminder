@@ -22,4 +22,7 @@ route.get('/getStudents', studentsController.allStudents);
 route.get('/getDates', datesController.getDates);
 route.post('/getStudent', studentsController.getStudent);
 
+//Update Data
+route.put('/updateDates', datesController.modifyallDates);
+
 module.exports= route;

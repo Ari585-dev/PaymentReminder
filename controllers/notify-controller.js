@@ -31,10 +31,10 @@ let controller = {
         try {
           //get personalized data based on student info and subject for the email
           const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const openingPayment = await Date.getOpeningDate(connection); //opening date
+          const closingDate = await Date.getClosingDate(connection); //opening date
           //get html personalized html body message
           const html = await HtmlManager.getHtmlOpenPayment(student, datesOrd, datesExt);
-          const mssg = body + " " + openingPayment;
+          const mssg = body + " " + closingDate;
           console.log("student : ", student.first_name)
           await MailController.sendMail('req', 'res', student.mail, html, title);
           await WhatsappController.sendWh('req', 'res', student.phone, mssg);
@@ -117,7 +117,8 @@ let controller = {
     id = req.body.id
     try {
       tag = 'paid'; // Define tag here
-      const students = await StudentsController.studentPaid(id);
+      payed= 1;
+      const students = await StudentsController.studentPaid(id, payed);
       moment.locale("es");
       let currentDate = moment();
       currentDate = currentDate.format("MMMM Do YYYY"); //now() to string

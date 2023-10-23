@@ -19,9 +19,9 @@ var conexion= mysql.createConnection(
 conexion.connect(
     (err)=>{
         if(!err){
-            console.log('Conexión established');
+            console.log('Connection established');
         }else{
-            console.log('Error in the conexion');
+            console.log('Error in the connection');
         }
     }
 );
