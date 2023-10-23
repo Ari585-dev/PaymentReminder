@@ -14,9 +14,10 @@ let controller = {
       //show input
       console.log(openingDate, extraordinaryDate, closingDate);
       //return data 
-      return res.status(200).json({ openingDate: openingDate, 
-        extraordinaryDate : extraordinaryDate,
-        closingDate : closingDate
+      return res.status(200).json({
+        openingDate: openingDate,
+        extraordinaryDate: extraordinaryDate,
+        closingDate: closingDate
       });
     } catch (err) {
       // Handle the error

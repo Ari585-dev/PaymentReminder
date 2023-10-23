@@ -14,7 +14,7 @@ let jobsManager = {
           if(ordinaryDates && ordinaryDates.length>0){
             //now()
             moment.locale("es");
-            const currentDate = moment('2023-10-18');//let currentDate = moment()
+            const currentDate = moment('2023-06-19');//let currentDate = moment()
 
             const ordinaryDatesMoment = [];
             const extraordinaryDatesMoment = [];
