@@ -6,6 +6,7 @@ const htmlOpenURL = path.join(__dirname, '../templates/Open.html'); //import htm
 const htmlRemindURL = path.join(__dirname, '../templates/reminder.html');
 const htmlPaid = path.join(__dirname, '../templates/paid.html');
 const htmlExtraordinaryRemindURL= path.join(__dirname, '../templates/ReminderExtraordinary.html');
+const htmlMessageToAll= path.join(__dirname, '../templates/MessageToAll.html');
 
 let htmlManager = {
   //sent first day of payment
@@ -73,6 +74,22 @@ let htmlManager = {
       htmlReplaced = htmlReplaced.replace("career", student.career);
       htmlReplaced = htmlReplaced.replace("fecha", date);
 
+      return htmlReplaced;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+
+  getHtmlMessageToAll: async function(student, title, message) {
+    try {
+      const html = await readFileAsync(htmlMessageToAll, 'utf8');
+      const fullName= student.first_name +" "+ student.middle_name +" "+ student.last_name;
+
+      let htmlReplaced = html.replace("Nombre", fullName);
+      htmlReplaced = htmlReplaced.replace("title_message", title);
+      htmlReplaced = htmlReplaced.replace("Message", message);
+      
       return htmlReplaced;
     } catch (error) {
       console.error(error);
