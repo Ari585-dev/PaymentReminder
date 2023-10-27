@@ -12,6 +12,9 @@ route.post('/remindPayment', notifyController.remindStudents); //remind who have
 route.post('/remindExtraordinary', notifyController.remindExtraordinary); // remind those who havent paid in extraordinary
 route.post('/studentPaid', notifyController.notifyPaid); // student id-> notify payment is done
 
+//university functions
+route.post('/sendMessageToAll', notifyController.sendMessageToAll); // student id-> notify payment is done
+
 //mobile apis
 route.post('/login', studentsController.studentsLogin);
 //getPDFs

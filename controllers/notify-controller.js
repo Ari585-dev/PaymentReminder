@@ -140,6 +140,32 @@ let controller = {
       res.status(500).send("An error occurred");
     }
   },
+
+  //message to all users in the db
+  sendMessageToAll: async function (req, res) {
+    console.log("------------Send message to all------------")
+    title = req.body.title
+    message = req.body.message
+    console.log("message to send : ", title, message)
+    try {
+      //get all students info, open-closing dates
+      const students = await StudentsController.allStudents();
+      for (const student of students) {
+        try {
+          const html = await HtmlManager.getHtmlMessageToAll(student, title, message);
+          console.log("student : ", student.first_name)
+          await MailController.sendMail('req', 'res', student.mail, html, title);
+          await WhatsappController.sendWh('req', 'res', student.phone, message);
+          await sleep(1000)
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      }
+      console.log("---------------END---------------")
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 module.exports = controller;
