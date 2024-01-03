@@ -23,6 +23,7 @@ route.post('/login', studentsController.studentsLogin);
 //retrieve data 
 route.get('/getStudents', studentsController.allStudents);
 route.get('/getDates', datesController.getDates);
+route.get('/getNews', datesController.getNews);
 route.post('/getStudent', studentsController.getStudent);
 
 module.exports= route;

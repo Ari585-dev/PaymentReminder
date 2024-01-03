@@ -2,6 +2,24 @@ const { promisify } = require('util');
 const moment = require('moment');
 
 module.exports = {
+  getInfo1: async function (connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const info_1 = await queryAsync("SELECT info_1 FROM information");
+      return info_1[0].info_1;
+    } catch (err) {
+      throw err;
+    }
+  },
+  getInfo2: async function (connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const info_2 = await queryAsync("SELECT info_2 FROM information");
+      return info_2[0].info_2;
+    } catch (err) {
+      throw err;
+    }
+  },
   //get the date of opening of the inscriptions
   getOpeningDate: async function (connection) {
     const queryAsync = promisify(connection.query).bind(connection);

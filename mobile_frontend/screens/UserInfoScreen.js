@@ -3,7 +3,7 @@ import { Linking, Button, Modal, Text, Pressable, View, SafeAreaView, StyleSheet
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Home = ({ dates, student, closeModal, modal }) => {
+const UserInfoScreen = ({ dates, student, closeModal, modal }) => {
   return (
     <Modal animationType="slide" visible={modal}>
       <SafeAreaView style={styles.safeArea}>
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default UserInfoScreen;

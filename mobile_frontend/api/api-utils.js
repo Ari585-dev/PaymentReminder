@@ -42,4 +42,18 @@ export const getDates = () => {
   });
 };
 
+export const getNews = () => {
+  
+  return axios.get('http://192.168.20.21:3000/api/getNews', {
+
+  })
+  .then((response) => {
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Login failed');
+    }
+  });
+};
+
 // Add other utility functions here if needed
