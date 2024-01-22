@@ -1,6 +1,6 @@
 let connection = require('../config/connection');
 const students = require('../crud/students');
-const Date = require('../crud/dates');
+const Date = require('../crud/Dates');
 const moment = require('moment');
 //const WhatsappController = require('./WhatsappController');
 const MailController = require('./mail-controller');

@@ -1,5 +1,5 @@
 let connection = require('../config/connection');
-const Date = require('../crud/dates');
+const Date = require('../crud/Dates');
 const moment = require('moment');
 
 require('dotenv').config();
@@ -26,34 +26,21 @@ let controller = {
     }
   },
 
-  modifyallDates: async function (req, res) {
-    moment.locale("es");
-    let params = req.body;
-    const opening = params.openingDate;
-    const closing = params.closingDate;
-    const extraordinary = params.extraordinaryDate;
-
-    const openingValid=moment(opening, 'YYYY-MM-DD', true).isValid();
-    const closeingValid=moment(closing, 'YYYY-MM-DD', true).isValid();;
-    const extraordinaryValid=moment(extraordinary, 'YYYY-MM-DD', true).isValid();;
+  getNews: async function (req, res) {
     try {
-      if (!params || Object.keys(params).length === 0) {
-        return res.status(400).send('Please, insert the new dates you want to update.');
-      } else {
-
-        if(openingValid && closeingValid && extraordinaryValid){
-          const data = await Date.updateallDates(connection, opening, closing, extraordinary)
-          console.log(params);
-          return res.status(200).send('Dates are insterted');
-        }else{
-          return res.status(400).send('Invalid format, please insert the dates with the following format: YYYY-MM-DD')
-        }
-      }
+      const info_1 = await Date.getInfo1(connection);
+      const info_2 = await Date.getInfo2(connection);
+      //show input
+      console.log(info_1, info_2);
+      //return data 
+      return res.status(200).json({ info_1: info_1, info_2: info_2 });
     } catch (err) {
+      // Handle the error
       console.error(err);
       return [];
     }
-  }
+  },
+  
 }
 
 module.exports = controller;

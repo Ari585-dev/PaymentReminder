@@ -1,5 +1,5 @@
 let connection = require('../config/connection');
-const date = require('../crud/dates');
+const date = require('../crud/Dates');
 
 let controller = {
   
