@@ -11,7 +11,7 @@ import { MainComponent } from './main/main.component';
   [RouterOutlet, 
   HeaderComponent,
   SideBarComponent,
-  MainComponent
+  MainComponent,
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

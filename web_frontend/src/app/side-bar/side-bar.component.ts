@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {faHouse} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,4 +11,5 @@ import { CommonModule } from '@angular/common';
 })
 export class SideBarComponent {
   items: string[] = ['Analytics', 'Messages', 'DB Management'];
+  faHouse = faHouse;
 }

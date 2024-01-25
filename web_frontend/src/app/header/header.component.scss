@@ -1,5 +1,7 @@
 .header {
-    height: 70px;
+  position:fixed;
+    height: 90px;
+    width: 100%;
     padding: 20px 50px;
     background-color: #b10404;
     color: #fff;
@@ -10,21 +12,47 @@
       font-weight: bold;
       font-size: 20px;
     }
+    .logo img{
+      margin-left: 60px;
+      height: 120%;
+      width: 80px
+    }
     .user {
       display: flex;
       align-items: center;
       font-weight: bold;
       .user-image {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         border: 2px solid #fff;
-        background-color: rgb(11, 107, 185);
+        background-color: rgb(224, 205, 31);
         margin-left: 20px;
-        display: flex;
+        display:flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
       }
+      .user-image img{
+        width: 60px;
+      }
+    }
+
+    @media only screen and (max-width: 1020px) {
+      .header{
+       background-color: aqua;
+      }
+    @media only screen and (max-width: 450px) {
+      .user{
+        font-size: 80%;
+      }
+
+      @media only screen and (max-width: 385px) {
+        .user{
+         /*  margin: 10px; */
+          font-size: 70%;
+        }
+    }
+    }
     }
   }

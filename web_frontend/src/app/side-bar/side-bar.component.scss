@@ -1,0 +1,20 @@
+.nav-items {
+    padding-top: 40px;
+    margin-top: 80px;
+    .nav-item {
+      padding: 25px 50px;
+      cursor: pointer;
+      @media only screen and (max-width: 1300px) {
+        padding: 25px 40px;
+      }
+      &:hover {
+        background-color: rgb(224, 205, 31);
+      }
+      span {
+        display: inline;
+        @media only screen and (max-width: 400px) {
+          display: none;
+        }
+      }
+    }
+  }
