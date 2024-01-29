@@ -1,17 +1,5 @@
-.main-container {
-    display: flex;
-    margin-left: 7rem;
-    .side-bar {
-      width: 350px;
-      min-width: 230px;
-      min-height: calc(100vh - 70px);
-      background-color: #f01e1e;
-      color: #fff;
-      box-shadow: 5px 5px 5px #939393;
-      @media only screen and (max-width: 1300px) {
-        width: 50px ;
-        min-width: 100px;
-        font-size: 8px;
-      }
-    }
-  }
+.container{
+  width: 82rem;
+}
+
+  

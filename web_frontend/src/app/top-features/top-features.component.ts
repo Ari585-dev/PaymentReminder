@@ -9,4 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './top-features.component.scss'
 })
 export class TopFeaturesComponent {
+  usersIcon: String = "./assets/img/users.png"
+  messagesIcon: String = "./assets/img/smartphone.png"
+  mailIcon: String = "./assets/img/envelope.png"
 }

@@ -1,5 +1,7 @@
 .widget-container {
-  margin-top: 100px;
+  margin-top: 10px;
+  margin-left: 7rem;
+
     display: flex;
     align-items: space-between;
     .widget {
@@ -25,6 +27,7 @@
       &.blue {
         background-color: rgb(105, 32, 251);
       }
+
       @media only screen and (max-width: 1600px) {
         width: 300px;
       }
@@ -62,6 +65,32 @@
             font-size: 16px;
           }
         }
+      }
+    }
+
+    .widget{
+      &.green:hover{
+        background-color: rgb(14, 116, 114);
+        width: 335px;
+        height: 185px
+      }
+
+      &.yellow:hover{
+        background-color:rgb(233, 177, 88);
+        width: 335px;
+        height: 185px
+      }
+
+      &.red:hover{
+        background-color: rgb(168, 26, 26);
+        width: 335px;
+        height: 185px
+      }
+
+      &.blue:hover{
+        background-color: rgb(127, 78, 226);
+        width: 335px;
+        height: 185px
       }
     }
   }

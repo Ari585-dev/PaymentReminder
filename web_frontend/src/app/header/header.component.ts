@@ -12,4 +12,5 @@ export class HeaderComponent {
 uDistritalLogo= "https://seeklogo.com/images/U/Universidad_distrital_Francisco_Jose_de_Caldas-logo-D1988258C8-seeklogo.com.png"
 managementIcon= '../assets/img/settings.png'
 houseIcon= '../assets/img/home.png'
+messageIcon= '../assets/img/envelope.png'
 }
