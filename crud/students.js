@@ -38,6 +38,7 @@ module.exports={
           reject(err);
         } else {
           resolve(data);
+          return data;
         }
       });
     });

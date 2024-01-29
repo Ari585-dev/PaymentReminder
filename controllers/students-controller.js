@@ -14,7 +14,7 @@ let controller = {
   allStudents: async function (req, res) {
     try {
       const data = await students.getAllStudents(connection);
-      return data;
+      return res.status(200).send(data);
     } catch (err) {
       console.error(err);
       return [];

@@ -1,5 +1,4 @@
 .header {
-  position:fixed;
     height: 90px;
     width: 100%;
     padding: 20px 50px;
@@ -8,15 +7,15 @@
     display: flex;
     justify-content: space-between;
     box-shadow: 5px 5px 5px #939393;
-    .logo {
-      font-weight: bold;
-      font-size: 20px;
+  
+    .icons{
+      display: flex;
+
+      .logo-config{
+        margin-left: 50px;
+      }
     }
-    .logo img{
-      margin-left: 60px;
-      height: 120%;
-      width: 80px
-    }
+    
     .user {
       display: flex;
       align-items: center;
