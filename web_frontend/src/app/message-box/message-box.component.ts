@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 @Component({
-  selector: 'app-sales-by-category',
+  selector: 'app-message-box',
   standalone: true,
   imports: [FormsModule, MatInputModule],
-  templateUrl: './sales-by-category.component.html',
-  styleUrl: './sales-by-category.component.scss'
+  templateUrl: './message-box.component.html',
+  styleUrl: './message-box.component.scss'
 })
-export class SalesByCategoryComponent {
+export class MessageBoxComponent {
   catchedText: String="";
   whIcon="./assets/img/whatsapp.png"
 }

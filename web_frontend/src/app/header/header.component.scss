@@ -1,6 +1,6 @@
 .header {
     height: 90px;
-    width: 100%;
+    width: 207vh;
     padding: 20px 50px;
     background-color: #b10404;
     color: #fff;
@@ -39,7 +39,7 @@
 
     @media only screen and (max-width: 1020px) {
       .header{
-       width: 100%;
+       width: 500px;
       }
     @media only screen and (max-width: 450px) {
       .user{
