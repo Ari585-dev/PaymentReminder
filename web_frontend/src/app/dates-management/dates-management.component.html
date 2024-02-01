@@ -1,10 +1,8 @@
-
-<div class="container">
-  <div class="dates-container">
-    <div class="opening"></div>
-    <div class="closing"></div>
-    <div class="extraordinary"></div>
+<div *ngIf="dates" class="container">
+  <div *ngFor="let date of dates" class="dates-container">
+    <div class="opening">{{ date.openingDate }}</div>
+    <div class="extraordinary">{{ date.extraordinaryDate }}</div>
+    <div class="closing">{{ date.closingDate }}</div>
   </div>
   <div class="centro">Contenido centrado</div>
 </div>
-
