@@ -56,7 +56,7 @@ let controller = {
       } else {
 
         if(openingValid && closeingValid && extraordinaryValid){
-          const data = await Date.updateallDates(connection, opening, closing, extraordinary)
+          await Date.updateallDates(connection, opening, closing, extraordinary)
           console.log(params);
           return res.status(200).send('Dates are insterted');
         }else{

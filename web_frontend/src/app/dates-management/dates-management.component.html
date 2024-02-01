@@ -1,8 +1,14 @@
 <div *ngIf="dates" class="container">
   <div *ngFor="let date of dates" class="dates-container">
-    <div class="opening">{{ date.openingDate }}</div>
-    <div class="extraordinary">{{ date.extraordinaryDate }}</div>
-    <div class="closing">{{ date.closingDate }}</div>
+    <div class="opening"><h2>{{ date.openingDate }}</h2></div>
+    <div class="extraordinary"><h2>{{ date.extraordinaryDate }}</h2></div>
+    <div class="closing"><h2>{{ date.closingDate }}</h2></div>
   </div>
-  <div class="centro">Contenido centrado</div>
+  <div class="centro">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a Date" (dateChange)="onDateChange($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker panelClass="datepicker"></mat-datepicker>
+    </mat-form-field>
+  </div>
 </div>
