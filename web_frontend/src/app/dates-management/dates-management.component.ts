@@ -26,6 +26,9 @@ export class DatesManagementComponent implements OnInit {
   dates: any[] = [];
   selecteDate: Date | null = null;
   formattedDate: string | null = null;
+  showDatepicker= false;  
+  showDatepicker1=false;
+  showDatepicker2=false;
 
   constructor(
     private datesService: DatesService, 
@@ -34,12 +37,27 @@ export class DatesManagementComponent implements OnInit {
     private route:ActivatedRoute
     ){}
 
+    showDatePicker() {
+      this.showDatepicker = true;
+    }
+
+    showDatePicker1() {
+      this.showDatepicker1 = true;
+    }
+
+    showDatePicker2() {
+      this.showDatepicker2 = true;
+    }
+
   onDateChange(event: MatDatepickerInputEvent<Date>) {
     this.selecteDate = event.value;
     this.formatDate();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([this.route.snapshot.url]);
+    this.showDatepicker = false;
+    this.showDatepicker1 = false;
+    this.showDatepicker2 = false;
   }
 
   ngOnInit(){
