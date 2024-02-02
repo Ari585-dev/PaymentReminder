@@ -27,6 +27,8 @@ route.get('/getNews', datesController.getNews);
 route.post('/getStudent', studentsController.getStudent);
 
 //Update Data
- route.put('/updateDates', datesController.modifyAllDates); 
+ route.put('/updateOpening', datesController.modifyOpeningDate);
+ route.put('/updateClosing', datesController.modifyClosingDate);
+ route.put('/updateExtraordinary', datesController.modifyExtDate);
 
 module.exports= route;

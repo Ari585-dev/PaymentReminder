@@ -113,14 +113,38 @@ module.exports = {
     }
   },
 
-  updateallDates: async function(connection, newOpening, newClosing, newExtraordinary){
+  updateOpeningDate: async function(connection, newOpening){
     const queryAsync = promisify(connection.query).bind(connection);
     try {
       const data = await queryAsync(`UPDATE information 
       SET 
-      payment_opening_date = '${newOpening}', 
-      closing_payment_date = '${newClosing}',
-      extraordinary_date = '${newExtraordinary}';`);
+      payment_opening_date = '${newOpening}';`);
+
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  updateClosingDate: async function(connection, newClosing){
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE information 
+      SET 
+      closing_payment_date = '${newClosing}';`);
+
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  updateExtDate: async function(connection, newExt){
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE information 
+      SET 
+      extraordinary_date = '${newExt}';`);
 
       return data;
     } catch (err) {
