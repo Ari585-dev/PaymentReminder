@@ -1,10 +1,27 @@
 .container {
-  margin: 0 auto;
+  margin-top: 100px;
   padding-top: 10px;
   padding-left: 50px;
   padding-right: 50px;
   height: 100vh;
   background-color: #d8d8d8;
+
+  h1 {
+    font-weight: bold;
+    font-size: 50px;
+    color: #002fff;
+    text-shadow:  2px 2px 4px #848485 ;
+    text-align: center;
+  }
+
+  h2 {
+    font-weight: 900;
+    font-size: 25px;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
 }
 .dates-container{
   display: flex;
@@ -13,7 +30,7 @@
   .opening{
     border: 2px dotted #333;
     width: 200px;
-    height: 40px;
+    height: 90px;
     margin: 30px;
 
   }
@@ -21,14 +38,14 @@
   .closing{
     border: 2px dotted #333;
     width: 200px;
-    height: 40px;
+    height: 90px;
     margin: 30px;
   }
 
   .extraordinary{
     border: 2px dotted #333;
     width: 200px;
-    height: 40px;
+    height: 90px;
     margin: 30px;
   }
 }

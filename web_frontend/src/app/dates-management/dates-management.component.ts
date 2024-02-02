@@ -48,16 +48,19 @@ export class DatesManagementComponent implements OnInit {
 
   fetchDates() {
     this.datesService.getDates()
-      .subscribe(
-        (data: any) => {
-
+      .subscribe({
+        next: (data: any) => {
           this.dates = [data];
         },
-        error => {
-          console.error('Error al obtener las fechas', error);
+        error: (error) => {
+          console.error('Error fetching dates', error);
+        },
+        complete: () => {
+          console.info('Fetching dates completed');
         }
-      );
+      });
   }
+
 
   private formatDate(){
   
