@@ -6,11 +6,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DatesService {
-  private apiUrl='http://localhost:3000/api/getDates';
+  private apiUrl='http://localhost:3000/api';
 
   constructor(private http:HttpClient) { }
 
   getDates(): Observable<any[]>{
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl+"/getDates");
+  }
+
+  modifyOpeningDate(newOpeningDate: string){
+    return this.http.put<any>(this.apiUrl+"/updateOpening",{openingDate:newOpeningDate});
+  }
+
+  modifyClosingDate(newClosingDate: string){
+    return this.http.put<any>(this.apiUrl+"/updateClosing", {closingDate:newClosingDate})
+  }
+
+  modifyExtraordinaryDate(newExtraordinaryDate: string){
+    return this.http.put<any>(this.apiUrl+"/updateExtraordinary", {extraordinaryDate:newExtraordinaryDate})
   }
 }

@@ -2,11 +2,11 @@
 <div class="form-container">
     <form>
         <label>BODY</label>
-        <input type="text" placeholder="ASUNTO" [(ngModel)]="bodyText" name="bodyText"/>
+        <input type="text" placeholder="ASUNTO" [(ngModel)]="title" name="title"/>
     </form>
     <form>
         <label>Message to Students</label>
-     <textarea  rows="8" cols="70" [(ngModel)]="catchedText" name="catchedText"></textarea>
+     <textarea  rows="8" cols="70" [(ngModel)]="message" name="message"></textarea>
       </form>
-      <button><img [src]="whIcon" alt="Wh Image"></button>
+      <button (click)="sendMessageToAll()"><img [src]="sendIcon" alt="Wh Image"></button>
 </div>

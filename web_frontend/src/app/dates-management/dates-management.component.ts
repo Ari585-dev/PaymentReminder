@@ -29,7 +29,7 @@ export class DatesManagementComponent implements OnInit {
   selectedOpeningDate: Date | null = null;
   selectedClosingDate: Date | null = null;
   selectedExtraordinaryDate: Date | null = null;
-  formattedOpDate: string | null = null;
+  formattedOpDate: string| null = null;
   formattedClDate: string | null = null;
   formattedExDate: string | null = null;
   showDatepicker= false;  
@@ -57,18 +57,21 @@ export class DatesManagementComponent implements OnInit {
 
   onOpChange(event: MatDatepickerInputEvent<Date>) {
     this.selectedOpeningDate = event.value;
-    this.formatDate();
+    const newOpeningDate= this.datePipe.transform(this.selectedOpeningDate, 'yyyy-MM-dd')
+    this.modifyOpeningDate(newOpeningDate);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.route.snapshot.url]);
+    this.router.navigate([this.route.snapshot.url]); 
     this.showDatepicker = false;
     this.showDatepicker1 = false;
     this.showDatepicker2 = false;
+    
   }
 
   onClChange(event: MatDatepickerInputEvent<Date>) {
     this.selectedClosingDate = event.value;
-    this.formatDate();
+    const newClosingDate= this.datePipe.transform(this.selectedClosingDate, 'yyyy-MM-dd')
+    this.modifyClosingDate(newClosingDate);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([this.route.snapshot.url]);
@@ -79,7 +82,8 @@ export class DatesManagementComponent implements OnInit {
 
   onExChange(event: MatDatepickerInputEvent<Date>) {
     this.selectedExtraordinaryDate = event.value;
-    this.formatDate();
+    const newExtraordinaryDate= this.datePipe.transform(this.selectedExtraordinaryDate, 'yyyy-MM-dd')
+    this.modifyExtraordinaryDate(newExtraordinaryDate);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([this.route.snapshot.url]);
@@ -90,7 +94,7 @@ export class DatesManagementComponent implements OnInit {
 
 
   ngOnInit(){
-   this.fetchDates();
+  this.fetchDates();
   }
 
   fetchDates() {
@@ -108,19 +112,40 @@ export class DatesManagementComponent implements OnInit {
       });
   }
 
-
-  private formatDate(){
-  
-    if (this.selectedOpeningDate || this.selectedClosingDate || this.selectedExtraordinaryDate ) {
-      this.formattedOpDate = this.datePipe.transform(this.selectedOpeningDate, 'yyyy-MM-dd');
-      this.formattedClDate = this.datePipe.transform(this.selectedClosingDate, 'yyyy-MM-dd');
-      this.formattedExDate = this.datePipe.transform(this.selectedExtraordinaryDate, 'yyyy-MM-dd');
-    } else {
-      this.formattedOpDate = null;
-      this.formattedClDate = null;
-      this.formattedExDate = null;
-    }
+  modifyOpeningDate(newOpeningDate:any){
+    this.datesService.modifyOpeningDate(newOpeningDate)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error("Error al modificar la fecha:", error);
+        }
+      });
   }
-  
+
+  modifyClosingDate(newClosingDate:any){
+    this.datesService.modifyClosingDate(newClosingDate)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error("Error al modificar la fecha:", error);
+        }
+      });
+  }
+
+  modifyExtraordinaryDate(newExtraordinaryDate:any){
+    this.datesService.modifyExtraordinaryDate(newExtraordinaryDate)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error("Error al modificar la fecha:", error);
+        }
+      });
+  }
   
 }
