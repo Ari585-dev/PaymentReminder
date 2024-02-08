@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, NgModule} from '@angular/core';
 import { DatesService } from '../core/services/dates.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
     CommonModule,
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    FormsModule
   ],
   templateUrl: './dates-management.component.html',
   styleUrl: './dates-management.component.scss',
@@ -24,8 +26,12 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class DatesManagementComponent implements OnInit {
   dates: any[] = [];
-  selecteDate: Date | null = null;
-  formattedDate: string | null = null;
+  selectedOpeningDate: Date | null = null;
+  selectedClosingDate: Date | null = null;
+  selectedExtraordinaryDate: Date | null = null;
+  formattedOpDate: string | null = null;
+  formattedClDate: string | null = null;
+  formattedExDate: string | null = null;
   showDatepicker= false;  
   showDatepicker1=false;
   showDatepicker2=false;
@@ -49,8 +55,8 @@ export class DatesManagementComponent implements OnInit {
       this.showDatepicker2 = true;
     }
 
-  onDateChange(event: MatDatepickerInputEvent<Date>) {
-    this.selecteDate = event.value;
+  onOpChange(event: MatDatepickerInputEvent<Date>) {
+    this.selectedOpeningDate = event.value;
     this.formatDate();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
@@ -59,6 +65,29 @@ export class DatesManagementComponent implements OnInit {
     this.showDatepicker1 = false;
     this.showDatepicker2 = false;
   }
+
+  onClChange(event: MatDatepickerInputEvent<Date>) {
+    this.selectedClosingDate = event.value;
+    this.formatDate();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.route.snapshot.url]);
+    this.showDatepicker = false;
+    this.showDatepicker1 = false;
+    this.showDatepicker2 = false;
+  }
+
+  onExChange(event: MatDatepickerInputEvent<Date>) {
+    this.selectedExtraordinaryDate = event.value;
+    this.formatDate();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.route.snapshot.url]);
+    this.showDatepicker = false;
+    this.showDatepicker1 = false;
+    this.showDatepicker2 = false;
+  }
+
 
   ngOnInit(){
    this.fetchDates();
@@ -82,10 +111,14 @@ export class DatesManagementComponent implements OnInit {
 
   private formatDate(){
   
-    if (this.selecteDate) {
-      this.formattedDate = this.datePipe.transform(this.selecteDate, 'yyyy-MM-dd');
+    if (this.selectedOpeningDate || this.selectedClosingDate || this.selectedExtraordinaryDate ) {
+      this.formattedOpDate = this.datePipe.transform(this.selectedOpeningDate, 'yyyy-MM-dd');
+      this.formattedClDate = this.datePipe.transform(this.selectedClosingDate, 'yyyy-MM-dd');
+      this.formattedExDate = this.datePipe.transform(this.selectedExtraordinaryDate, 'yyyy-MM-dd');
     } else {
-      this.formattedDate = null;
+      this.formattedOpDate = null;
+      this.formattedClDate = null;
+      this.formattedExDate = null;
     }
   }
   

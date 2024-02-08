@@ -1,8 +1,12 @@
 
 <div class="form-container">
     <form>
-        <label >Message to Students</label>
-     <textarea name="name" rows="8" cols="70" [(ngModel)]="catchedText"></textarea>
+        <label>BODY</label>
+        <input type="text" placeholder="ASUNTO" [(ngModel)]="bodyText" name="bodyText"/>
+    </form>
+    <form>
+        <label>Message to Students</label>
+     <textarea  rows="8" cols="70" [(ngModel)]="catchedText" name="catchedText"></textarea>
       </form>
       <button><img [src]="whIcon" alt="Wh Image"></button>
 </div>

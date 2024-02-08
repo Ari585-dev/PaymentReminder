@@ -1,5 +1,5 @@
 const notifyController = require('../controllers/notify-controller');
-const date = require('../crud/dates');
+const date = require('../crud/Dates');
 const cron = require('node-cron');
 const moment = require('moment');
 const connection = require('./connection');

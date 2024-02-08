@@ -10,5 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class MessageBoxComponent {
   catchedText: String="";
+  bodyText: String="";
   whIcon="./assets/img/whatsapp.png"
 }
