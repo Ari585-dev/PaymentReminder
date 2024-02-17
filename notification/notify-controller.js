@@ -1,12 +1,14 @@
-const MailController = require('./mail-controller');
-const HtmlManager = require('../config/html-manager');
-const StudentsController = require('./students-controller');
-const WhatsappController = require('./whatsapp-controller');
-const DatesController = require('./dates-controller');
-const Date = require('../crud/Dates');
+const mailSender = require('../messages/senders/mail-controller');
+const whatsAppSender = require('../messages/senders/whatsapp-controller');
+const emailCreate = require('../messages/message_creation/html-manager');
+const messageInfo = require('../messages/message_creation/xml-manager')
+const student = require('../controllers/students-controller');
+const university = require('../controllers/university-controller');
+
+//const Date = require('../crud/Dates');
 const moment = require('moment');
-const xmlController = require('../config/xml-manager')
-let connection = require('../config/connection');
+
+let connection = require('../db_interface/connection');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -18,9 +20,9 @@ let controller = {
     console.log("------------notify all students------------")
     try {
       //get all students info, open-closing dates
-      const students = await StudentsController.allStudents();
-      const datesOrd = await DatesController.closingDate();
-      const datesExt = await DatesController.extraordinaryDate();
+      const students = await student.allStudents();
+      const datesOrd = await university.closingDate();
+      const datesExt = await university.extraordinaryDate();
       //now()
       let currentDate = moment();
       moment.locale("es");
@@ -30,14 +32,15 @@ let controller = {
       for (const student of students) {
         try {
           //get personalized data based on student info and subject for the email
-          const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const openingPayment = await Date.getOpeningDate(connection); //opening date
+          const [title, body] = await messageInfo.getInfo(tag, student, currentDate);
+          //const openingPayment = await Date.getOpeningDate(connection); //opening date
+          const openingPayment = await university.openingDate(); //opening date
           //get html personalized html body message
-          const html = await HtmlManager.getHtmlOpenPayment(student, datesOrd, datesExt);
+          const html = await emailCreate.getHtmlOpenPayment(student, datesOrd, datesExt);
           const mssg = body + " " + openingPayment;
           console.log("student : ", student.first_name)
-          await MailController.sendMail('req', 'res', student.mail, html, title);
-          await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await mailSender.sendMail('req', 'res', student.mail, html, title);
+          await whatsAppSender.sendWh('req', 'res', student.phone, mssg);
           await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
@@ -54,20 +57,20 @@ let controller = {
     console.log("------------notify students without payment------------")
     try {
       tag = 'remindStudents';
-      const students = await StudentsController.studentsWithoutPayment();
-      const datesOrd = await DatesController.closingDate();
-      const datesExt = await DatesController.extraordinaryDate();
+      const students = await student.studentsWithoutPayment();
+      const datesOrd = await university.closingDate();
+      const datesExt = await university.extraordinaryDate();
       let currentDate = moment();
       moment.locale("es");
       for (const student of students) {
         try {
-          const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const closingDate = await Date.getClosingDate(connection);
-          const html = await HtmlManager.getHtmlReminder(student, datesOrd, datesExt);
-          const mssg = body + " " + closingDate;
+          const [title, body] = await messageInfo.getInfo(tag, student, currentDate);
+          //const closingDate = await Date.getClosingDate(connection);
+          const html = await emailCreate.getHtmlReminder(student, datesOrd, datesExt);
+          const mssg = body + " " + datesOrd;
           console.log("student : ", student.first_name)
-          await MailController.sendMail('req', 'res', student.mail, html, title);
-          await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await mailSender.sendMail('req', 'res', student.mail, html, title);
+          await whatsAppSender.sendWh('req', 'res', student.phone, mssg);
           await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
@@ -85,19 +88,19 @@ let controller = {
     console.log("------------extraordinary date reminder------------")
     try {
       tag = 'remindExtraordinary'; // Define tag here
-      const students = await StudentsController.studentsWithoutPayment();
-      const extraordinaryDate = await DatesController.extraordinaryDate();
+      const students = await student.studentsWithoutPayment();
+      const extraordinaryDate = await university.extraordinaryDate();
       let currentDate = moment(); //no format?
       moment.locale("es");
       for (const student of students) {
         try {
-          const [title, body] = await xmlController.getInfo(tag, student, currentDate);
+          const [title, body] = await messageInfo.getInfo(tag, student, currentDate);
           //const extraordinaryDate = await Date.getExtraordinaryDate(connection);
-          const html = await HtmlManager.getHtmlExtraordinaryReminder(student, extraordinaryDate);
+          const html = await emailCreate.getHtmlExtraordinaryReminder(student, extraordinaryDate);
           const mssg = body + " " + extraordinaryDate;
           console.log("student : ", student.first_name)
-          await MailController.sendMail('req', 'res', student.mail, html, title);
-          await WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          await mailSender.sendMail('req', 'res', student.mail, html, title);
+          await whatsAppSender.sendWh('req', 'res', student.phone, mssg);
           await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
@@ -117,18 +120,18 @@ let controller = {
     id = req.body.id
     try {
       tag = 'paid'; // Define tag here
-      const students = await StudentsController.studentPaid(id);
+      const students = await student.studentPaid(id);
       moment.locale("es");
       let currentDate = moment();
       currentDate = currentDate.format("MMMM Do YYYY"); //now() to string
       for (const student of students) {
         try {
-          const [title, body] = await xmlController.getInfo(tag, student, currentDate);
-          const html = await HtmlManager.getHtmlPaid(student, currentDate);
+          const [title, body] = await messageInfo.getInfo(tag, student, currentDate);
+          const html = await emailCreate.getHtmlPaid(student, currentDate);
           const mssg = body;
           console.log("student : ", student.first_name)
-          MailController.sendMail('req', 'res', student.mail, html, title);
-          WhatsappController.sendWh('req', 'res', student.phone, mssg);
+          mailSender.sendMail('req', 'res', student.mail, html, title);
+          whatsAppSender.sendWh('req', 'res', student.phone, mssg);
           await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);
@@ -149,13 +152,13 @@ let controller = {
     console.log("message to send : ", title, message)
     try {
       //get all students info, open-closing dates
-      const students = await StudentsController.allStudents();
+      const students = await student.allStudents();
       for (const student of students) {
         try {
-          const html = await HtmlManager.getHtmlMessageToAll(student, title, message);
+          const html = await emailCreate.getHtmlMessageToAll(student, title, message);
           console.log("student : ", student.first_name)
-          await MailController.sendMail('req', 'res', student.mail, html, title);
-          await WhatsappController.sendWh('req', 'res', student.phone, message);
+          await mailSender.sendMail('req', 'res', student.mail, html, title);
+          await whatsAppSender.sendWh('req', 'res', student.phone, message);
           await sleep(1000)
         } catch (error) {
           console.error('An error occurred:', error);

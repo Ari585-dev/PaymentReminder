@@ -1,15 +1,15 @@
-const notifyController = require('../controllers/notify-controller');
-const date = require('../crud/dates');
+const notifyController = require('./notify-controller');
+const university = require('../db_interface/university');
 const cron = require('node-cron');
 const moment = require('moment');
-const connection = require('./connection');
+const connection = require('../db_interface/connection');
 
 let jobsManager = {
   //manage the scheduling of the reminding dates of every case
   scheduleCheckDates: function () {
     cron.schedule('*/1 * * * *', async () => { //this job will check after specified time
       try {
-        date.getRemindDays(connection)
+        university.getRemindDays(connection)
         .then(([ordinaryDates, extraDays]) => { // the ordinary and extra days to convert them into moment objets again
           if(ordinaryDates && ordinaryDates.length>0){
             //now()

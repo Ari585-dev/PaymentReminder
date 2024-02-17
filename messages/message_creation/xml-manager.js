@@ -1,7 +1,7 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
 const path = require('path');
-const filePath = path.join(__dirname, '../templates/Information.xml');
+const filePath = path.join(__dirname, '../message_templates/Information.xml');
 
 //functions to take data from xml files, used in email subject and whattsapp messages
 let xmlManager = {

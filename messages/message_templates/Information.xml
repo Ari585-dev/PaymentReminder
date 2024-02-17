@@ -12,7 +12,7 @@
         <body>Estimado name, desde la Universidad Distrital Francisco José de Caldas te informamos no has realizado el pago de la matrícula, recuerda que este tiene como fecha límite</body>
     </remindStudents>
     <remindExtraordinary>
-    <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, NO HAS PAGADO</title>
-    <body>Cordial saludo name, la Universidad Distrital Francisco José de Caldas te informa que no has realizado el pago de la matrícula y te encuentras en fecha de pago extraordinaria, esta tiene como día límite</body>
+        <title>UNIVERSIDAD DISTRITAL: FECHA EXTRAORDINARIA, NO HAS PAGADO</title>
+        <body>Cordial saludo name, la Universidad Distrital Francisco José de Caldas te informa que no has realizado el pago de la matrícula y te encuentras en fecha de pago extraordinaria, esta tiene como día límite</body>
     </remindExtraordinary>
 </Messages>

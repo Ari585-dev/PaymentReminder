@@ -2,11 +2,11 @@ const fs = require('fs'); //fs and path to find the path of the project
 const path = require('path');
 const util = require('util'); //util library to read files
 const readFileAsync = util.promisify(fs.readFile);
-const htmlOpenURL = path.join(__dirname, '../templates/Open.html'); //import html files  
-const htmlRemindURL = path.join(__dirname, '../templates/reminder.html');
-const htmlPaid = path.join(__dirname, '../templates/paid.html');
-const htmlExtraordinaryRemindURL= path.join(__dirname, '../templates/ReminderExtraordinary.html');
-const htmlMessageToAll= path.join(__dirname, '../templates/MessageToAll.html');
+const htmlOpenURL = path.join(__dirname, '../message_templates/email_html/Open.html'); //import html files  
+const htmlRemindURL = path.join(__dirname, '../message_templates/email_html/Reminder.html');
+const htmlPaid = path.join(__dirname, '../message_templates/email_html/Paid.html');
+const htmlExtraordinaryRemindURL= path.join(__dirname, '../message_templates/email_html/ReminderExtraordinary.html');
+const htmlMessageToAll= path.join(__dirname, '../message_templates/email_html/MessageToAll.html');
 
 let htmlManager = {
   //sent first day of payment

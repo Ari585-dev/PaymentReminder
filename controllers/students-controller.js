@@ -1,10 +1,5 @@
-let connection = require('../config/connection');
-const students = require('../crud/students');
-const Date = require('../crud/Dates');
-const moment = require('moment');
-//const WhatsappController = require('./WhatsappController');
-const MailController = require('./mail-controller');
-const MessageController = require('../config/html-manager');
+let connection = require('../db_interface/connection');
+const student = require('../db_interface/student');
 
 require('dotenv').config();
 
@@ -13,7 +8,7 @@ let controller = {
 
   allStudents: async function (req, res) {
     try {
-      const data = await students.getAllStudents(connection);
+      const data = await student.getAllStudents(connection);
       return data;
     } catch (err) {
       console.error(err);
@@ -23,7 +18,7 @@ let controller = {
 
   studentsWithoutPayment: async function (req, res) {
     try {
-      const data = await students.getAllStudentsWithoutPayment(connection);
+      const data = await student.getAllStudentsWithoutPayment(connection);
       return data;
     } catch (err) {
       console.log(err);
@@ -37,7 +32,7 @@ let controller = {
       return res.status(400).send("'id' and 'password' are required.");
     }
     try {
-      const isLoginValid = await students.login(connection, params.id, params.password);
+      const isLoginValid = await student.login(connection, params.id, params.password);
       if (isLoginValid) {
         return res.status(200).json({ message: "You have been logged successfully" });
       } else {
@@ -56,7 +51,7 @@ let controller = {
       return res.status(400).send("id is required");
     }
     try {
-      const data = await students.getStudent(connection, params.id);
+      const data = await student.getStudent(connection, params.id);
       //console.log(data)
       return res.status(200).json({ student: data });
     } catch (err) {
@@ -68,7 +63,7 @@ let controller = {
 
   studentPaid: async function (id) {
     try {
-      const data = await students.getStudent(connection, id);
+      const data = await student.getStudent(connection, id);
       return data;
     } catch (err) {
       console.log(err);
