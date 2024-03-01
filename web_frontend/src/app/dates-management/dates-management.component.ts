@@ -29,9 +29,6 @@ export class DatesManagementComponent implements OnInit {
   selectedOpeningDate: Date | null = null;
   selectedClosingDate: Date | null = null;
   selectedExtraordinaryDate: Date | null = null;
-  formattedOpDate: string| null = null;
-  formattedClDate: string | null = null;
-  formattedExDate: string | null = null;
   showDatepicker= false;  
   showDatepicker1=false;
   showDatepicker2=false;
