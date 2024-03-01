@@ -1,5 +1,6 @@
 let connection = require('../db_interface/connection');
 const university = require('../db_interface/university');
+const moment = require('moment');
 
 let controller = {
   
@@ -79,7 +80,7 @@ let controller = {
         } else {
   
           if(openingValid){
-            await Date.updateOpeningDate(connection, opening)
+            await university.updateOpeningDate(connection, opening)
             console.log(params);
             return res.status(200).send('Dates are insterted');
           }else{
@@ -103,7 +104,7 @@ let controller = {
           } else {
     
             if(closingValid){
-              await Date.updateClosingDate(connection, closing)
+              await university.updateClosingDate(connection, closing)
               console.log(params);
               return res.status(200).send('Dates are insterted');
             }else{
@@ -127,7 +128,7 @@ let controller = {
             } else {
       
               if(extraordinaryValid){
-                await Date.updateExtDate(connection, extraordinary)
+                await university.updateExtDate(connection, extraordinary)
                 console.log(params);
                 return res.status(200).send('Dates are insterted');
               }else{

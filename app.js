@@ -1,9 +1,7 @@
 const express = require('express')
 require('dotenv').config();
-const jobs = require('./config/jobs-manager')
+const jobs = require('./notification/jobs-manager')
 const bodyParser = require('body-parser')
-const date = require('./crud/Dates');
-let connection = require('./config/connection');
 
 const app= express()
 const project_routes= require('./routes/routes')
