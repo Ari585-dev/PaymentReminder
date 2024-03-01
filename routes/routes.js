@@ -22,4 +22,9 @@ route.get('/getDates', university.getDates);
 route.get('/getNews', university.getNews);
 route.post('/getStudent', student.getStudent);
 
+//Update Data
+route.put('/updateOpening', university.modifyOpeningDate);
+route.put('/updateClosing', university.modifyClosingDate);
+route.put('/updateExtraordinary', university.modifyExtDate);
+
 module.exports= route;
