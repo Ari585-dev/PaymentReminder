@@ -65,6 +65,18 @@ module.exports={
     } catch (err) {
       throw err;
     }
-  }
+  },
+
+  getCountStudents: async function(connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync("SELECT COUNT (id) FROM students");
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+
 
 }

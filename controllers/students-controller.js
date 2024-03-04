@@ -70,6 +70,16 @@ let controller = {
       return [];
     }
    
+  },
+
+  countStudents: async function(req, res) {
+    try {
+      const data = await student.getCountStudents(connection);
+      return res.status(200).json(data[0]['COUNT (id)']);
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
 }
 

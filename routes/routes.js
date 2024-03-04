@@ -20,6 +20,7 @@ route.post('/login', student.studentsLogin);
 route.get('/getStudents', student.allStudents);
 route.get('/getDates', university.getDates);
 route.get('/getNews', university.getNews);
+route.get('/countStudents', student.countStudents);
 route.post('/getStudent', student.getStudent);
 
 //Update Data
