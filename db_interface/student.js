@@ -57,7 +57,7 @@ module.exports={
   },
 
   //get all student who have paid
-  getAllStudentsWithPayment: async function(connection, id) {
+  getAllStudentsWithPayment: async function(connection) {
     const queryAsync = promisify(connection.query).bind(connection);
     try {
       const data = await queryAsync("SELECT * FROM students WHERE payed = true");
