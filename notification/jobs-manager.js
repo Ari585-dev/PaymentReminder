@@ -1,4 +1,4 @@
-const notifyController = require('./notify-controller');
+const notifyController = require('./notify-manager');
 const university = require('../db_interface/university');
 const cron = require('node-cron');
 const moment = require('moment');
