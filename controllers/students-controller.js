@@ -80,6 +80,16 @@ let controller = {
       console.log(err);
       return [];
     }
+  },
+
+  updateStudentPayment: async function(id){
+    try {
+      const data = await student.modifyStudentPaid(connection, id);
+      return data
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   }
 }
 

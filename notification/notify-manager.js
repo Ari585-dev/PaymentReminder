@@ -121,6 +121,7 @@ let controller = {
     try {
       tag = 'paid'; // Define tag here
       const students = await student.studentPaid(id);
+      student.updateStudentPayment(id)
       moment.locale("es");
       let currentDate = moment();
       currentDate = currentDate.format("MMMM Do YYYY"); //now() to string

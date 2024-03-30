@@ -77,6 +77,18 @@ module.exports={
     }
   },
 
+  modifyStudentPaid: async function(connection, id) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE students 
+      SET 
+      payed = 1 WHERE id='${id}';`);
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
 
 
 }
