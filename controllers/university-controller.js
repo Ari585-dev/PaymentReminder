@@ -40,6 +40,8 @@ let controller = {
       const openingDate = await university.getOpeningDate(connection);
       const closingDate = await university.getClosingDate(connection);
       const extraordinaryDate = await university.getExtraordinaryDate(connection);
+
+      
       //show input
       console.log(openingDate, extraordinaryDate, closingDate);
       //return data 
