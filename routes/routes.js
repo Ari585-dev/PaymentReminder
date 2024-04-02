@@ -1,6 +1,4 @@
 const express = require('express')
-//const mailController=require('../controllers/mail-controller');
-//const whatsappController=require('../controllers/whatsapp-controller');
 const student=require('../controllers/students-controller');
 const notify=require('../notification/notify-manager');
 const university=require('../controllers/university-controller')

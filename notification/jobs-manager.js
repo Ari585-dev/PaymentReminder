@@ -44,10 +44,10 @@ let jobsManager = {
               }, 0/*ordinaryDatesMiliseconds[0]*/);
                setTimeout(() => {
                 notifyController.remindStudents(); //first reminder about payment
-              },  ordinaryDatesMiliseconds[1]);
+              }, 10000/*ordinaryDatesMiliseconds[1]*/);
               setTimeout(() => {
-                notifyController.remindStudents(); //second reminder about payment
-              },  ordinaryDatesMiliseconds[2]);
+                notifyController.remindExtraordinary(); //second reminder about payment
+              }, 20000/*ordinaryDatesMiliseconds[2]*/);
               //print in ms the schedule time for first day of payment and reminders (ordinary)
               console.log("open payment: "+ ordinaryDatesMiliseconds[0]+"ms, remind 1"+ ordinaryDatesMiliseconds[1]+"m, remind2"+ ordinaryDatesMiliseconds[2]+"ms")
             } else if(currentDate.isAfter(ordinaryDatesMoment[2]) && currentDate.isBefore(extraordinaryDatesMoment[extraordinaryDatesMoment.length-1])){
