@@ -1,7 +1,7 @@
-import { Component, OnInit, NgModule} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DatesService } from '../core/services/dates.service';
-import { CommonModule, DatePipe } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { CommonModule, DatePipe} from '@angular/common';
+
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -32,12 +32,15 @@ export class DatesManagementComponent implements OnInit {
   showDatepicker= false;  
   showDatepicker1=false;
   showDatepicker2=false;
+  now= new Date()
+  open: Date | null = null;
+  close: Date | null = null;
+  ext: Date | null = null;
+  
 
   constructor(
     private datesService: DatesService, 
     private datePipe: DatePipe,
-    private router:Router,
-    private route:ActivatedRoute
     ){}
 
     showDatePicker() {
@@ -53,44 +56,52 @@ export class DatesManagementComponent implements OnInit {
     }
 
   onOpChange(event: MatDatepickerInputEvent<Date>) {
-    this.selectedOpeningDate = event.value;
-    const newOpeningDate= this.datePipe.transform(this.selectedOpeningDate, 'yyyy-MM-dd')
-    this.modifyOpeningDate(newOpeningDate);
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.route.snapshot.url]); 
-    this.showDatepicker = false;
-    this.showDatepicker1 = false;
-    this.showDatepicker2 = false;
+    if(event.value){
+      this.selectedOpeningDate = event.value;
+
+      if(this.selectedOpeningDate>this.now){
+        const newOpeningDate = this.datePipe.transform(this.selectedOpeningDate, 'yyyy-MM-dd')
+        this.modifyOpeningDate(newOpeningDate);
+        window.location.reload();
+        this.showDatepicker = false;
+      }
+    } 
+   
     
   }
 
   onClChange(event: MatDatepickerInputEvent<Date>) {
-    this.selectedClosingDate = event.value;
-    const newClosingDate= this.datePipe.transform(this.selectedClosingDate, 'yyyy-MM-dd')
-    this.modifyClosingDate(newClosingDate);
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.route.snapshot.url]);
-    this.showDatepicker = false;
-    this.showDatepicker1 = false;
-    this.showDatepicker2 = false;
-  }
+    if(event.value){
+      this.selectedClosingDate = event.value;
 
-  onExChange(event: MatDatepickerInputEvent<Date>) {
-    this.selectedExtraordinaryDate = event.value;
-    const newExtraordinaryDate= this.datePipe.transform(this.selectedExtraordinaryDate, 'yyyy-MM-dd')
-    this.modifyExtraordinaryDate(newExtraordinaryDate);
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([this.route.snapshot.url]);
-    this.showDatepicker = false;
-    this.showDatepicker1 = false;
-    this.showDatepicker2 = false;
+      if (this.open!== null && this.open !== undefined) {
+      if(this.selectedClosingDate > this.open){
+        const newClosingDate = this.datePipe.transform(this.selectedClosingDate, 'yyyy-MM-dd');
+        this.modifyClosingDate(newClosingDate);
+        window.location.reload();
+        this.showDatepicker1 = false;
+      }
+    }
   }
+  }
+  onExChange(event: MatDatepickerInputEvent<Date>) {
+    if(event.value){
+      this.selectedExtraordinaryDate = event.value;
+
+      if (this.close!== null && this.close !== undefined) {
+        if(this.selectedExtraordinaryDate > this.close){
+          const newExtraordinaryDate = this.datePipe.transform(this.selectedExtraordinaryDate, 'yyyy-MM-dd')
+          this.modifyExtraordinaryDate(newExtraordinaryDate);
+          window.location.reload();
+          this.showDatepicker2 = false;
+        }
+    }
+      }
+    }
 
 
   ngOnInit(){
+  this.fetchAllDates();
   this.fetchDates();
   }
 
@@ -99,6 +110,26 @@ export class DatesManagementComponent implements OnInit {
       .subscribe({
         next: (data: any) => {
           this.dates = [data];
+          
+        },
+        error: (error) => {
+          console.error('Error fetching dates', error);
+        },
+        complete: () => {
+          console.info('Fetching dates completed');
+        }
+      });
+  }
+
+  fetchAllDates() {
+    this.datesService.getAllDates()
+      .subscribe({
+        next: (data: any) => {
+          this.dates = [data];
+          this.open= new Date(data.openingDate);
+          this.close=new Date(data.closingDate);
+          this.ext=new Date(data.extraordinaryDate);
+          
         },
         error: (error) => {
           console.error('Error fetching dates', error);

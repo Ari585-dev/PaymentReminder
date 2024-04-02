@@ -56,6 +56,25 @@ let controller = {
     }
   },
 
+  getAllDates: async function (req, res) {
+    try {
+      const openingDate = await university.getOpenDate(connection);
+      const closingDate = await university.getCloseDate(connection);
+      const extraordinaryDate = await university.getExtDate(connection);
+      //show input
+      console.log(openingDate, extraordinaryDate, closingDate);
+      //return data 
+      return res.status(200).json({ openingDate: openingDate,
+        closingDate : closingDate, 
+        extraordinaryDate : extraordinaryDate
+      });
+    } catch (err) {
+      // Handle the error
+      console.error(err);
+      return [];
+    }
+  },
+
   getNews: async function (req, res) {
     try {
       const info_1 = await university.getInfo1(connection);

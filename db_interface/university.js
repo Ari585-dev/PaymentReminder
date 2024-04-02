@@ -53,6 +53,50 @@ module.exports = {
   },
 
   //retrieve the limit day to pay the fee before closing the ordinary inscriptions
+  getCloseDate: async function (connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const date = await queryAsync("SELECT closing_payment_date FROM information");
+      const closing_payment_date = date[0].closing_payment_date;
+      const extractedDate = closing_payment_date.toISOString().split("T")[0];
+      const parsedDate = moment(extractedDate, "YYYY-MM-DD");
+      const formattedDate = parsedDate.format("YYYY-MM-DD");
+      return formattedDate;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  getOpenDate: async function (connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const date = await queryAsync("SELECT payment_opening_date FROM information");
+      const payment_opening_date = date[0].payment_opening_date;
+      const extractedDate = payment_opening_date.toISOString().split("T")[0];
+      const parsedDate = moment(extractedDate, "YYYY-MM-DD");
+      const formattedDate = parsedDate.format("YYYY-MM-DD");
+      return formattedDate;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  //get extraordinarydate (last day of payment)
+  getExtDate: async function (connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const date = await queryAsync("SELECT extraordinary_date FROM information");
+      const extraordinary_payment_date = date[0].extraordinary_date;
+      const extractedDate = extraordinary_payment_date.toISOString().split("T")[0];
+      const parsedDate = moment(extractedDate, "YYYY-MM-DD");
+      const formattedDate = parsedDate.format("YYYY-MM-DD");
+      return formattedDate;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  //retrieve the limit day to pay the fee before closing the ordinary inscriptions
   getClosingDate: async function (connection) {
     const queryAsync = promisify(connection.query).bind(connection);
     try {
