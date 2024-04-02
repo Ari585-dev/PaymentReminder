@@ -14,6 +14,10 @@ export class DatesService {
     return this.http.get<any[]>(this.apiUrl+"/getDates");
   }
 
+  getAllDates(): Observable<any[]>{
+    return this.http.get<any[]>(this.apiUrl+"/getAllDates");
+  }
+
   modifyOpeningDate(newOpeningDate: string){
     return this.http.put<any>(this.apiUrl+"/updateOpening",{openingDate:newOpeningDate});
   }

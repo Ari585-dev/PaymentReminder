@@ -1,6 +1,10 @@
 .header {
     height: 90px;
     width: 100%;
+    position: fixed; /* Posicionamiento fijo para mantener el encabezado en la parte superior */
+    top: 0; /* Colocar el encabezado en la parte superior de la pantalla */
+    left: 0; /* Asegurarse de que el encabezado comience desde la izquierda */
+    z-index: 1000;
     padding: 20px 50px;
     background-color: #b10404;
     color: #fff;

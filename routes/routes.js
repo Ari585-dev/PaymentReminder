@@ -19,6 +19,7 @@ route.post('/login', student.studentsLogin);
 //retrieve data 
 route.get('/getStudents', student.allStudents);
 route.get('/getDates', university.getDates);
+route.get('/getAllDates', university.getAllDates);
 route.get('/getNews', university.getNews);
 route.get('/countStudents', student.countStudents);
 route.post('/getStudent', student.getStudent);

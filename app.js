@@ -8,13 +8,14 @@ const project_routes= require('./routes/routes')
 
 PORT= process.env.FRONTENDPORT;
 
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', `${PORT}`);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
