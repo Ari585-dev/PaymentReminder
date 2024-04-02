@@ -57,7 +57,7 @@ module.exports={
   },
 
   //get all student who have paid
-  getAllStudentsWithPayment: async function(connection, id) {
+  getAllStudentsWithPayment: async function(connection) {
     const queryAsync = promisify(connection.query).bind(connection);
     try {
       const data = await queryAsync("SELECT * FROM students WHERE payed = true");
@@ -65,6 +65,30 @@ module.exports={
     } catch (err) {
       throw err;
     }
-  }
+  },
+
+  getCountStudents: async function(connection) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync("SELECT COUNT (id) FROM students");
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  modifyStudentPaid: async function(connection, id) {
+    const queryAsync = promisify(connection.query).bind(connection);
+    try {
+      const data = await queryAsync(`UPDATE students 
+      SET 
+      payed = 1 WHERE id='${id}';`);
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  },
+
+
 
 }

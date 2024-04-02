@@ -1,5 +1,5 @@
-const mailSender = require('../messages/senders/mail-controller');
-const whatsAppSender = require('../messages/senders/whatsapp-controller');
+const mailSender = require('../messages/senders/mailSender');
+const whatsAppSender = require('../messages/senders/whatsappSender');
 const emailCreate = require('../messages/message_creation/html-manager');
 const messageInfo = require('../messages/message_creation/xml-manager')
 const student = require('../controllers/students-controller');
@@ -121,6 +121,7 @@ let controller = {
     try {
       tag = 'paid'; // Define tag here
       const students = await student.studentPaid(id);
+      student.updateStudentPayment(id)
       moment.locale("es");
       let currentDate = moment();
       currentDate = currentDate.format("MMMM Do YYYY"); //now() to string

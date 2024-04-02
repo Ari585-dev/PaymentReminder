@@ -2,7 +2,7 @@ const express = require('express')
 //const mailController=require('../controllers/mail-controller');
 //const whatsappController=require('../controllers/whatsapp-controller');
 const student=require('../controllers/students-controller');
-const notify=require('../notification/notify-controller');
+const notify=require('../notification/notify-manager');
 const university=require('../controllers/university-controller')
 const route= express.Router();
 
@@ -20,6 +20,12 @@ route.post('/login', student.studentsLogin);
 route.get('/getStudents', student.allStudents);
 route.get('/getDates', university.getDates);
 route.get('/getNews', university.getNews);
+route.get('/countStudents', student.countStudents);
 route.post('/getStudent', student.getStudent);
+
+//Update Data
+route.put('/updateOpening', university.modifyOpeningDate);
+route.put('/updateClosing', university.modifyClosingDate);
+route.put('/updateExtraordinary', university.modifyExtDate);
 
 module.exports= route;
