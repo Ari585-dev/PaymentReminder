@@ -1,5 +1,6 @@
 let connection = require('../db_interface/connection');
 const university = require('../db_interface/university');
+const moment = require('moment');
 
 let controller = {
   
@@ -39,6 +40,8 @@ let controller = {
       const openingDate = await university.getOpeningDate(connection);
       const closingDate = await university.getClosingDate(connection);
       const extraordinaryDate = await university.getExtraordinaryDate(connection);
+
+      
       //show input
       console.log(openingDate, extraordinaryDate, closingDate);
       //return data 
@@ -67,6 +70,78 @@ let controller = {
       return [];
     }
   },
+
+  modifyOpeningDate: async function (req, res){
+    let params = req.body;
+      const opening = params.openingDate
+      const openingValid=moment(opening, 'YYYY-MM-DD', true).isValid();
+  
+      try {
+        if (!params || Object.keys(params).length === 0) {
+          return res.status(400).send('Please, insert the new dates you want to update.');
+        } else {
+  
+          if(openingValid){
+            await university.updateOpeningDate(connection, opening)
+            console.log(params);
+            return res.status(200).send('Dates are insterted');
+          }else{
+            return res.status(400).send('Invalid format, please insert the dates with the following format: YYYY-MM-DD')
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        return [];
+      }
+    },
+  
+    modifyClosingDate: async function (req, res){
+      let params = req.body;
+        const closing = params.closingDate
+        const closingValid=moment(closing, 'YYYY-MM-DD', true).isValid();
+    
+        try {
+          if (!params || Object.keys(params).length === 0) {
+            return res.status(400).send('Please, insert the new dates you want to update.');
+          } else {
+    
+            if(closingValid){
+              await university.updateClosingDate(connection, closing)
+              console.log(params);
+              return res.status(200).send('Dates are insterted');
+            }else{
+              return res.status(400).send('Invalid format, please insert the dates with the following format: YYYY-MM-DD')
+            }
+          }
+        } catch (err) {
+          console.error(err);
+          return [];
+        }
+      },
+  
+      modifyExtDate: async function (req, res){
+        let params = req.body;
+          const extraordinary = params.extraordinaryDate
+          const extraordinaryValid=moment(extraordinary, 'YYYY-MM-DD', true).isValid();
+      
+          try {
+            if (!params || Object.keys(params).length === 0) {
+              return res.status(400).send('Please, insert the new dates you want to update.');
+            } else {
+      
+              if(extraordinaryValid){
+                await university.updateExtDate(connection, extraordinary)
+                console.log(params);
+                return res.status(200).send('Dates are insterted');
+              }else{
+                return res.status(400).send('Invalid format, please insert the dates with the following format: YYYY-MM-DD')
+              }
+            }
+          } catch (err) {
+            console.error(err);
+            return [];
+          }
+        }
 }
 
 module.exports = controller;
