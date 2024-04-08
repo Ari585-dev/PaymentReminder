@@ -1,5 +1,6 @@
 let connection = require('../db_interface/connection');
 const student = require('../db_interface/student');
+const bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -32,7 +33,17 @@ let controller = {
       return res.status(400).send("'id' and 'password' are required.");
     }
     try {
-      const isLoginValid = await student.login(connection, params.id, params.password);
+      const salt = '$2b$10$abcdefghijklmnopqrstuu';
+      const hashPassword = async (password) => {
+        try {
+          const hashedPassword = await bcrypt.hash(password, salt);
+          return hashedPassword;
+        } catch (error) {
+          throw new Error('Error hashing password');
+        }
+      };
+      const hashedPassword = await hashPassword(params.password);
+      const isLoginValid = await student.login(connection, params.id, hashedPassword);
       if (isLoginValid) {
         return res.status(200).json({ message: "You have been logged successfully" });
       } else {

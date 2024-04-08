@@ -38,8 +38,8 @@ const UserInfoScreen = ({ dates, student, closeModal, modal }) => {
           ) :
             <View style={styles.textContainer}>
               <Text style={styles.texts}>{"Apertura de pago : " + dates.openingDate}</Text>
-              <Text style={styles.texts}>{"Cierre de fechas de pago : " + dates.openingDate}</Text>
-              <Text style={styles.texts}>{"Pago extraordinario : " + dates.openingDate}</Text>
+              <Text style={styles.texts}>{"Cierre de fechas de pago : " + dates.closingDate}</Text>
+              <Text style={styles.texts}>{"Pago extraordinario : " + dates.extraordinaryDate}</Text>
             </View>
           }
 

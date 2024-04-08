@@ -47,6 +47,7 @@ let controller = {
         }
       }
       console.log("---------------END---------------")
+      //res.status(200).send("Notified all students about payment");
     } catch (err) {
       console.error(err);
     }
@@ -77,6 +78,7 @@ let controller = {
         }
       }
       console.log("---------------END---------------")
+      //res.status(200).send("Notified students without payment");
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
@@ -107,6 +109,7 @@ let controller = {
         }
       }
       console.log("---------------END---------------")
+      //res.status(200).send("Extraordinary message sent");
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
@@ -139,6 +142,7 @@ let controller = {
         }
       }
       console.log("---------------END---------------")
+      //res.status(200).send("Message sent");
     } catch (err) {
       console.error(err);
       res.status(500).send("An error occurred");
@@ -166,6 +170,7 @@ let controller = {
         }
       }
       console.log("---------------END---------------")
+      res.status(200).send("Message sent to all");
     } catch (err) {
       console.error(err);
     }
