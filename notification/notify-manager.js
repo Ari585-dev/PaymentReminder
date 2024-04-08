@@ -34,10 +34,10 @@ let controller = {
           //get personalized data based on student info and subject for the email
           const [title, body] = await messageInfo.getInfo(tag, student, currentDate);
           //const openingPayment = await Date.getOpeningDate(connection); //opening date
-          const openingPayment = await university.openingDate(); //opening date
+          const closingPayment = await university.closingDate(); //opening date
           //get html personalized html body message
           const html = await emailCreate.getHtmlOpenPayment(student, datesOrd, datesExt);
-          const mssg = body + " " + openingPayment;
+          const mssg = body + " " + closingPayment;
           console.log("student : ", student.first_name)
           await mailSender.sendMail('req', 'res', student.mail, html, title);
           await whatsAppSender.sendWh('req', 'res', student.phone, mssg);
